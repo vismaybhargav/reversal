@@ -1,19 +1,58 @@
-[gd_scene load_steps=4 format=3 uid="uid://bp1fhbmf83xsy"]
+[gd_scene load_steps=12 format=3 uid="uid://bp1fhbmf83xsy"]
 
 [ext_resource type="Script" path="res://scripts/entity/Player.cs" id="1_hew8j"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xwtwf"]
-size = Vector2(20, 20)
+[ext_resource type="Texture2D" uid="uid://dwax5yqe2cv4w" path="res://assets/player/playerwalk8.svg" id="2_n5jl2"]
+[ext_resource type="Texture2D" uid="uid://blm8ntlcdydnp" path="res://assets/player/playerwalk1player_rest.svg" id="3_5o5a1"]
+[ext_resource type="Texture2D" uid="uid://cdlvayirk2bkt" path="res://assets/player/playerwalk2.svg" id="4_p78it"]
+[ext_resource type="Texture2D" uid="uid://nnm5erammgge" path="res://assets/player/playerwalk3.svg" id="5_a4616"]
+[ext_resource type="Texture2D" uid="uid://fklo0j168mok" path="res://assets/player/playerwalk4.svg" id="6_ewm0i"]
+[ext_resource type="Texture2D" uid="uid://c7dpsfqplu3ns" path="res://assets/player/playerwalk6.svg" id="7_0ud75"]
+[ext_resource type="Texture2D" uid="uid://c01p7fosahu8s" path="res://assets/player/playerwalk5.svg" id="8_4tt2v"]
+[ext_resource type="Texture2D" uid="uid://cl4qvsjujd4xc" path="res://assets/player/playerwalk7.svg" id="9_fnkuc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1q7kq"]
+size = Vector2(16, 15.2)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3m3xt"]
+animations = [{
+"frames": [{
+"duration": 0.4,
+"texture": ExtResource("2_n5jl2")
+}, {
+"duration": 0.4,
+"texture": ExtResource("3_5o5a1")
+}, {
+"duration": 0.4,
+"texture": ExtResource("4_p78it")
+}, {
+"duration": 0.4,
+"texture": ExtResource("5_a4616")
+}, {
+"duration": 0.4,
+"texture": ExtResource("6_ewm0i")
+}, {
+"duration": 0.4,
+"texture": ExtResource("7_0ud75")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_4tt2v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_fnkuc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_hew8j")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(5, 5)
-texture = SubResource("PlaceholderTexture2D_xwtwf")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.43051e-06)
 scale = Vector2(5, 5)
 shape = SubResource("RectangleShape2D_1q7kq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3m3xt")
+frame_progress = 0.628791
