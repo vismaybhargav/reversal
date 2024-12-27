@@ -23,5 +23,6 @@ project/assembly_name="reversal"
 folder_colors={
 "res://assets/": "red",
 "res://builds/": "orange",
+"res://scenes/": "green",
 "res://scripts/": "blue"
 }
