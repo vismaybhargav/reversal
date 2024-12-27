@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bp1fhbmf83xsy"]
+[gd_scene load_steps=4 format=3 uid="uid://bp1fhbmf83xsy"]
+
+[ext_resource type="Script" path="res://scripts/entity/Player.cs" id="1_hew8j"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xwtwf"]
 size = Vector2(20, 20)
@@ -6,6 +8,7 @@ size = Vector2(20, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1q7kq"]
 
 [node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_hew8j")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("PlaceholderTexture2D_xwtwf")
