@@ -12,6 +12,8 @@ public partial class Player : CharacterBody2D
 	
 	[Export]
 	PackedScene _bulletScene = GD.Load<PackedScene>("res://scenes/Bullet.tscn");
+
+	[Export] public float PlayerFireCooldown = 0.25f;
 	
 	private Vector2 _screenSize;
 
@@ -101,7 +103,8 @@ public partial class Player : CharacterBody2D
 		if (!_canShoot) return;
 		
 		_canShoot = false;
-		_timer.Start();
+		_timer.Start(PlayerFireCooldown);
+		GD.Print(_endOfGun.Position);
 		
 		// THE BUG HERE WAS THAT I WAS PASSING IN _endOfGun.Position WHICH IS RELATIVE NOT ABSOLUTE OMG IM DUMBB - VISMAY
 		EmitSignal("PlayerFired", _bulletScene, _endOfGun.GlobalPosition, Vector2.Right.Rotated(GlobalRotation));

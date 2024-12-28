@@ -2,43 +2,43 @@ using Godot;
 
 namespace reversal.scripts.entity
 {
-    public partial class Bullet : Area2D
-    {
-        [Export] public int BulletSpeedIncrement = 10;
-        [Export] public float BulletLifeTime = 0.75f;
-        private Vector2 _velocity = Vector2.Zero;
-        
-        // Child Nodes
-        private Timer _timer;
+	public partial class Bullet : Area2D
+	{
+		[Export] public int BulletSpeedIncrement = 10;
+		[Export] public float BulletLifeTime = 0.75f;
+		private Vector2 _velocity = Vector2.Zero;
+		
+		// Child Nodes
+		private Timer _timer;
 
-        public override void _Ready()
-        {
-            InstantiateChildNodes();
-        }
+		public override void _Ready()
+		{
+			InstantiateChildNodes();
+		}
 
-        private void InstantiateChildNodes()
-        {
-            
-            _timer = GetNode<Timer>("Timer");
-        }
+		private void InstantiateChildNodes()
+		{
+			
+			_timer = GetNode<Timer>("Timer");
+		}
 
-        public void Start(Vector2 pos, Vector2 dir)
-        {
-            Position = pos;
-            Rotation = dir.Angle();
-            _velocity = dir * BulletSpeedIncrement;
-        }
+		public void Start(Vector2 pos, Vector2 dir)
+		{
+			Position = pos;
+			Rotation = dir.Angle();
+			_velocity = dir * BulletSpeedIncrement;
+		}
 
-        public override void _Process(double delta)
-        {
-            //TODO: Figure out how to multiply this by delta time
-            Position += _velocity;
-        }
+		public override void _Process(double delta)
+		{
+			//TODO: Figure out how to multiply this by delta time
+			Position += _velocity;
+		}
 
-        private void Explode()
-        {
-           GD.Print("Exploded");
-           QueueFree();
-        }
-    }
+		private void Explode()
+		{
+		   GD.Print("Exploded");
+		   QueueFree();
+		}
+	}
 }
