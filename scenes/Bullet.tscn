@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://dqu3w5h5dydgu"]
 
-[ext_resource type="Script" path="res://scripts/entity/Bullet.cs" id="1_3hbsr"]
-[ext_resource type="Texture2D" uid="uid://1vmun13u345o" path="res://assets/gun/bullet.svg" id="2_828bh"]
+[ext_resource type="Script" path="res://scripts/entity/bullet/Bullet.cs" id="1_1gpik"]
+[ext_resource type="Texture2D" uid="uid://q7unk5p0gbyq" path="res://assets/gun/bullet.svg" id="2_828bh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_16myc"]
 size = Vector2(12, 24)
 
 [node name="Bullet" type="Area2D"]
-script = ExtResource("1_3hbsr")
+script = ExtResource("1_1gpik")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.04216e-14, -2.38419e-07)
