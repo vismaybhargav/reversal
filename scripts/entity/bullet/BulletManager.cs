@@ -1,6 +1,6 @@
 using Godot;
 
-namespace reversal.scripts.entity;
+namespace reversal.scripts.entity.bullet;
 
 public partial class BulletManager : Node2D
 {

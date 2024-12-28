@@ -1,5 +1,6 @@
 using Godot;
 using reversal.scripts.entity;
+using reversal.scripts.entity.bullet;
 
 namespace reversal.scripts.world;
 
