@@ -15,17 +15,25 @@ public partial class Player : CharacterBody2D
 	
 	private Vector2 _screenSize;
 
-	private Marker2D _endOfGun;
 	private bool _canShoot = true;
 
 	[Signal]
-	public delegate void PlayerFiredEventHandler(Bullet bullet, Vector2 pos);
+	public delegate void PlayerFiredEventHandler(PackedScene bullet, Vector2 pos, Vector2 dir);
+	
+	// Child Nodes
+	private Timer _timer;
+	private Marker2D _endOfGun;
 	
 	public override void _Ready()
 	{
+		InstantiateChildNodes();
 		// INIT HERE
 		_screenSize = GetViewportRect().Size; // we might need this later? lol
-		//Position = new Vector2(200, 300);
+	}
+
+	private void InstantiateChildNodes()
+	{
+		_timer = GetNode<Timer>("Timer");
 		_endOfGun = GetNode<Marker2D>("EndOfGun");
 	}
 
@@ -33,6 +41,9 @@ public partial class Player : CharacterBody2D
 	{
 		// Rotation
 		Rotation = GetAngleToMouseRad();
+		
+		/*GD.Print($"Player pos: ${Position}");
+		GD.Print($"End of Gun Pos${_endOfGun.GlobalPosition}");*/
 		
 		// WASD movements
 		var velocity = Vector2.Zero;
@@ -87,12 +98,14 @@ public partial class Player : CharacterBody2D
 
 	private void Shoot()
 	{
-		_canShoot = false;
-		GD.Print("shoot");
+		if (!_canShoot) return;
 		
-		// create bullet instance
-		var bulletInstance = (Node2D)_bulletScene.Instantiate();
-		EmitSignal("PlayerFired", bulletInstance, _endOfGun.Position);
+		_canShoot = false;
+		_timer.Start();
+		GD.Print(_endOfGun.Position);
+		
+		// THE BUG HERE WAS THAT I WAS PASSING IN _endOfGun.Position WHICH IS RELATIVE NOT ABSOLUTE OMG IM DUMBB - VISMAY
+		EmitSignal("PlayerFired", _bulletScene, _endOfGun.GlobalPosition, Vector2.Right.Rotated(GlobalRotation));
 	}
 
 	private void OnCooldownTimeout()

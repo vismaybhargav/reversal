@@ -1,11 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyh8whj7q5gam"]
+[gd_scene load_steps=4 format=3 uid="uid://cyh8whj7q5gam"]
 
 [ext_resource type="Script" path="res://scripts/world/Main.cs" id="1_am4a6"]
 [ext_resource type="PackedScene" uid="uid://bp1fhbmf83xsy" path="res://scenes/Player.tscn" id="2_vggtg"]
+[ext_resource type="Texture2D" uid="uid://cg2mf8yiltust" path="res://assets/test.jpg" id="3_8ygwx"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_am4a6")
 
+[node name="Test" type="Sprite2D" parent="."]
+position = Vector2(559, 326)
+texture = ExtResource("3_8ygwx")
+
 [node name="Player" parent="." instance=ExtResource("2_vggtg")]
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="Label" type="Label" parent="Player/Camera2D"]
+offset_right = 81.0
+offset_bottom = 23.0
+text = "Some Text"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[connection signal="PlayerFired" from="Player" to="." method="OnPlayerShoot"]

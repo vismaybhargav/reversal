@@ -1,4 +1,5 @@
 using Godot;
+using reversal.scripts.entity;
 
 namespace reversal.scripts.world;
 
@@ -7,7 +8,7 @@ public partial class Main : Node2D
 	private CharacterBody2D _player;
 	private Camera2D _camera;
 
-	private entity.BulletManager _bulletManager;
+	private BulletManager _bulletManager;
 	
 	public override void _Ready()
 	{
@@ -16,8 +17,8 @@ public partial class Main : Node2D
 		
 		_camera.MakeCurrent();
 
-		_bulletManager = GetNode<entity.BulletManager>("BulletManager");
-		_player.Connect("PlayerFired", new Callable(_bulletManager, nameof(_bulletManager.HandleBulletSpawned)));
+		//_bulletManager = GetNode<BulletManager>("BulletManager");
+		//_player.Connect("PlayerFired", new Callable(_bulletManager, nameof(_bulletManager.HandleBulletSpawned)));
 	}
 	
 	/// <summary>
@@ -28,14 +29,11 @@ public partial class Main : Node2D
 		_player = GetNode<CharacterBody2D>("Player");
 		_camera = GetNode<Camera2D>("Player/Camera2D");
 	}
-	
-	public override void _Process(double delta)
+
+	private void OnPlayerShoot(PackedScene bullet, Vector2 pos, Vector2 dir)
 	{
-		_camera.Position = _player.Position;
-			
-		if (Input.IsActionPressed("ui_accept"))
-		{
-			GD.Print("Accept button pressed");
-		}
+		var b = (Bullet)bullet.Instantiate();
+		AddChild(b);
+		b.Start(pos, dir);
 	}
 }
