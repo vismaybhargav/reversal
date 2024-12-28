@@ -1,14 +1,14 @@
 [gd_scene load_steps=12 format=3 uid="uid://bp1fhbmf83xsy"]
 
 [ext_resource type="Script" path="res://scripts/entity/Player.cs" id="1_hew8j"]
-[ext_resource type="Texture2D" uid="uid://dwax5yqe2cv4w" path="res://assets/player/playerwalk8.svg" id="2_n5jl2"]
-[ext_resource type="Texture2D" uid="uid://blm8ntlcdydnp" path="res://assets/player/playerwalk1player_rest.svg" id="3_5o5a1"]
-[ext_resource type="Texture2D" uid="uid://cdlvayirk2bkt" path="res://assets/player/playerwalk2.svg" id="4_p78it"]
-[ext_resource type="Texture2D" uid="uid://nnm5erammgge" path="res://assets/player/playerwalk3.svg" id="5_a4616"]
-[ext_resource type="Texture2D" uid="uid://fklo0j168mok" path="res://assets/player/playerwalk4.svg" id="6_ewm0i"]
-[ext_resource type="Texture2D" uid="uid://c7dpsfqplu3ns" path="res://assets/player/playerwalk6.svg" id="7_0ud75"]
-[ext_resource type="Texture2D" uid="uid://c01p7fosahu8s" path="res://assets/player/playerwalk5.svg" id="8_4tt2v"]
-[ext_resource type="Texture2D" uid="uid://cl4qvsjujd4xc" path="res://assets/player/playerwalk7.svg" id="9_fnkuc"]
+[ext_resource type="Texture2D" uid="uid://20e6ldkh8ddn" path="res://assets/player/playerwalk8.svg" id="2_n5jl2"]
+[ext_resource type="Texture2D" uid="uid://di665uvq82duh" path="res://assets/player/playerwalk1player_rest.svg" id="3_5o5a1"]
+[ext_resource type="Texture2D" uid="uid://xn6avc7e4o84" path="res://assets/player/playerwalk2.svg" id="4_p78it"]
+[ext_resource type="Texture2D" uid="uid://bbcougny8q7po" path="res://assets/player/playerwalk3.svg" id="5_a4616"]
+[ext_resource type="Texture2D" uid="uid://n745vqpa1qtt" path="res://assets/player/playerwalk4.svg" id="6_ewm0i"]
+[ext_resource type="Texture2D" uid="uid://8i5pvopn32t7" path="res://assets/player/playerwalk6.svg" id="7_0ud75"]
+[ext_resource type="Texture2D" uid="uid://d6rv2tloud0g" path="res://assets/player/playerwalk5.svg" id="8_4tt2v"]
+[ext_resource type="Texture2D" uid="uid://hfiwwpe0mxr7" path="res://assets/player/playerwalk7.svg" id="9_fnkuc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1q7kq"]
 size = Vector2(16, 15.2)

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://3vx2hbitbmyg"]
+
+[ext_resource type="Script" path="res://scripts/entity/Bullet.cs" id="1_3hbsr"]
+[ext_resource type="Texture2D" uid="uid://coffo1vn7qt1q" path="res://assets/gun/bullet.svg" id="2_828bh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_16myc"]
+size = Vector2(38, 79)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hligi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_828bh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_3hbsr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_16myc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hligi")
