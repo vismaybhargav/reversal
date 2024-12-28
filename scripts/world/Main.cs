@@ -6,6 +6,8 @@ public partial class Main : Node2D
 {
 	private CharacterBody2D _player;
 	private Camera2D _camera;
+
+	private entity.BulletManager _bulletManager;
 	
 	public override void _Ready()
 	{
@@ -13,6 +15,9 @@ public partial class Main : Node2D
 		InstantiateChildNodes();
 		
 		_camera.MakeCurrent();
+
+		_bulletManager = GetNode<entity.BulletManager>("BulletManager");
+		_player.Connect("PlayerFired", new Callable(_bulletManager, nameof(_bulletManager.HandleBulletSpawned)));
 	}
 	
 	/// <summary>

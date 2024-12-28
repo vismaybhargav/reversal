@@ -17,6 +17,9 @@ public partial class Player : CharacterBody2D
 
 	private Marker2D _endOfGun;
 	private bool _canShoot = true;
+
+	[Signal]
+	public delegate void PlayerFiredEventHandler(Bullet bullet, Vector2 pos);
 	
 	public override void _Ready()
 	{
@@ -89,8 +92,7 @@ public partial class Player : CharacterBody2D
 		
 		// create bullet instance
 		var bulletInstance = (Node2D)_bulletScene.Instantiate();
-		bulletInstance.Position = _endOfGun.Position;
-		AddChild(bulletInstance);
+		EmitSignal("PlayerFired", bulletInstance, _endOfGun.Position);
 	}
 
 	private void OnCooldownTimeout()

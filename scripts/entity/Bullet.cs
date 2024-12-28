@@ -7,16 +7,12 @@ namespace reversal.scripts.entity
         [Export] public int BulletSpeedIncrement = 10;
         [Export] public float BulletLifeTime = 0.75f;
 
-        private Timer _timer;
-
         public override void _Ready()
         {
-            InstantiateChildNodes(); 
-        }
+            var timer = GetNode<Timer>("Timer");
 
-        private void InstantiateChildNodes()
-        {
-            _timer = GetNode<Timer>("Timer");
+            timer.Connect("timeout", Callable.From(Explode));
+            timer.Start(BulletLifeTime);
         }
 
         public override void _Process(double delta)
