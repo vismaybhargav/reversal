@@ -1,24 +1,21 @@
 using Godot;
-using System;
 
 namespace reversal.scripts.entity;
 
 public partial class Player : CharacterBody2D
 {
-	[Export] public int Speed { get; set; } = 400;
-	
-	private Vector2 _screenSize;
+	[Export] 
+	public int Speed { get; set; } = 400;
 	
 	[Export]
 	public int PlayerSpeedIncrement = 1;
-
-	private Marker2D _endOfGun;
-	
 	[Export]
 	PackedScene _bulletScene = GD.Load<PackedScene>("res://scenes/Bullet.tscn");
+	
+	private Vector2 _screenSize;
 
-	[Signal]
-	public delegate void PlayerShootEventHandler();
+	private Marker2D _endOfGun;
+	private bool _canShoot = true;
 	
 	public override void _Ready()
 	{
@@ -86,9 +83,15 @@ public partial class Player : CharacterBody2D
 
 	private void Shoot()
 	{
+		_canShoot = false;
 		GD.Print("shoot");
 		// create bullet instance
 		var bulletInstance = _bulletScene.Instantiate();
 		AddChild(bulletInstance);
+	}
+
+	private void OnCooldownTimeout()
+	{
+		_canShoot = true;
 	}
 }

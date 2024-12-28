@@ -1,14 +1,14 @@
 [gd_scene load_steps=12 format=3 uid="uid://bp1fhbmf83xsy"]
 
 [ext_resource type="Script" path="res://scripts/entity/Player.cs" id="1_hew8j"]
-[ext_resource type="Texture2D" uid="uid://20e6ldkh8ddn" path="res://assets/player/playerwalk8.svg" id="2_n5jl2"]
-[ext_resource type="Texture2D" uid="uid://di665uvq82duh" path="res://assets/player/playerwalk1player_rest.svg" id="3_5o5a1"]
-[ext_resource type="Texture2D" uid="uid://xn6avc7e4o84" path="res://assets/player/playerwalk2.svg" id="4_p78it"]
-[ext_resource type="Texture2D" uid="uid://bbcougny8q7po" path="res://assets/player/playerwalk3.svg" id="5_a4616"]
-[ext_resource type="Texture2D" uid="uid://n745vqpa1qtt" path="res://assets/player/playerwalk4.svg" id="6_ewm0i"]
-[ext_resource type="Texture2D" uid="uid://8i5pvopn32t7" path="res://assets/player/playerwalk6.svg" id="7_0ud75"]
-[ext_resource type="Texture2D" uid="uid://d6rv2tloud0g" path="res://assets/player/playerwalk5.svg" id="8_4tt2v"]
-[ext_resource type="Texture2D" uid="uid://hfiwwpe0mxr7" path="res://assets/player/playerwalk7.svg" id="9_fnkuc"]
+[ext_resource type="Texture2D" uid="uid://csg2yo5jekvbq" path="res://assets/player/playerwalk8.svg" id="2_n5jl2"]
+[ext_resource type="Texture2D" uid="uid://cdvwkbem1tcja" path="res://assets/player/playerwalk1player_rest.svg" id="3_5o5a1"]
+[ext_resource type="Texture2D" uid="uid://d2w7dsax3623i" path="res://assets/player/playerwalk2.svg" id="4_p78it"]
+[ext_resource type="Texture2D" uid="uid://s5dr8ke140sv" path="res://assets/player/playerwalk3.svg" id="5_a4616"]
+[ext_resource type="Texture2D" uid="uid://c8b4ygmh3hw3a" path="res://assets/player/playerwalk4.svg" id="6_ewm0i"]
+[ext_resource type="Texture2D" uid="uid://dka0v78g5bcly" path="res://assets/player/playerwalk6.svg" id="7_0ud75"]
+[ext_resource type="Texture2D" uid="uid://dv538pf3x2jqf" path="res://assets/player/playerwalk5.svg" id="8_4tt2v"]
+[ext_resource type="Texture2D" uid="uid://c8x0soxivfgue" path="res://assets/player/playerwalk7.svg" id="9_fnkuc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1q7kq"]
 size = Vector2(12.6, 15.4)
@@ -59,4 +59,10 @@ sprite_frames = SubResource("SpriteFrames_3m3xt")
 frame_progress = 0.628791
 
 [node name="EndOfGun" type="Marker2D" parent="."]
-position = Vector2(33, 30)
+position = Vector2(32, 30)
+scale = Vector2(1.13193, 7.14881)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="OnCooldownTimeout"]
