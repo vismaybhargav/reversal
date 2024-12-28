@@ -85,8 +85,10 @@ public partial class Player : CharacterBody2D
 	{
 		_canShoot = false;
 		GD.Print("shoot");
+		
 		// create bullet instance
-		var bulletInstance = _bulletScene.Instantiate();
+		var bulletInstance = (Node2D)_bulletScene.Instantiate();
+		bulletInstance.Position = _endOfGun.Position;
 		AddChild(bulletInstance);
 	}
 
