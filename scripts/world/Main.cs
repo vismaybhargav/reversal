@@ -9,7 +9,6 @@ public partial class Main : Node2D
 	
 	public override void _Ready()
 	{
-		GD.Print("Main ready");
 		InstantiateNodes();
 		
 		_camera.MakeCurrent();
@@ -22,15 +21,5 @@ public partial class Main : Node2D
 	{
 		_player = GetNode<CharacterBody2D>("Player");
 		_camera = GetNode<Camera2D>("Player/Camera2D");
-	}
-	
-	public override void _Process(double delta)
-	{
-		_camera.Position = _player.Position;
-			
-		if (Input.IsActionPressed("ui_accept"))
-		{
-			GD.Print("Accept button pressed");
-		}
 	}
 }

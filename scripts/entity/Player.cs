@@ -22,7 +22,7 @@ public partial class Player : CharacterBody2D
 	public override void _Process(double delta)
 	{
 		// Rotation
-		Rotation = GetAngleToMouseRad();
+		LookAt(GetGlobalMousePosition());
 		
 		// WASD movements
 		var velocity = Vector2.Zero;
@@ -58,15 +58,5 @@ public partial class Player : CharacterBody2D
 			x: Mathf.Clamp(Position.X, 0, _screenSize.X),
 			y: Mathf.Clamp(Position.Y, 0, _screenSize.Y)
 		);
-	}
-	
-	/// <summary>
-	/// Calculates the angle between current rotation and the mouse
-	/// </summary>
-	/// <returns>the angle in radians</returns>
-	private float GetAngleToMouseRad()
-	{
-		var direction = GetGlobalMousePosition() - GlobalPosition;
-		return Mathf.Atan2(direction.Y, direction.X);	
 	}
 }
