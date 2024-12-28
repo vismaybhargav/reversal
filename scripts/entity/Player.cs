@@ -102,7 +102,6 @@ public partial class Player : CharacterBody2D
 		
 		_canShoot = false;
 		_timer.Start();
-		GD.Print(_endOfGun.Position);
 		
 		// THE BUG HERE WAS THAT I WAS PASSING IN _endOfGun.Position WHICH IS RELATIVE NOT ABSOLUTE OMG IM DUMBB - VISMAY
 		EmitSignal("PlayerFired", _bulletScene, _endOfGun.GlobalPosition, Vector2.Right.Rotated(GlobalRotation));
