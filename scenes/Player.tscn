@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://hfiwwpe0mxr7" path="res://assets/player/playerwalk7.svg" id="9_fnkuc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1q7kq"]
-size = Vector2(16, 15.2)
+size = Vector2(12.6, 15.4)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3m3xt"]
 animations = [{
@@ -49,10 +49,14 @@ animations = [{
 script = ExtResource("1_hew8j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1.43051e-06)
+position = Vector2(1.5, -0.499999)
 scale = Vector2(5, 5)
 shape = SubResource("RectangleShape2D_1q7kq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.56455
 sprite_frames = SubResource("SpriteFrames_3m3xt")
 frame_progress = 0.628791
+
+[node name="EndOfGun" type="Marker2D" parent="."]
+position = Vector2(33, 30)

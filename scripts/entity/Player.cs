@@ -12,11 +12,20 @@ public partial class Player : CharacterBody2D
 	[Export]
 	public int PlayerSpeedIncrement = 1;
 
+	private Marker2D _endOfGun;
+	
+	[Export]
+	PackedScene _bulletScene = GD.Load<PackedScene>("res://scenes/Bullet.tscn");
+
+	[Signal]
+	public delegate void PlayerShootEventHandler();
+	
 	public override void _Ready()
 	{
 		// INIT HERE
 		_screenSize = GetViewportRect().Size; // we might need this later? lol
 		//Position = new Vector2(200, 300);
+		_endOfGun = GetNode<Marker2D>("EndOfGun");
 	}
 
 	public override void _Process(double delta)
@@ -58,8 +67,13 @@ public partial class Player : CharacterBody2D
 			x: Mathf.Clamp(Position.X, 0, _screenSize.X),
 			y: Mathf.Clamp(Position.Y, 0, _screenSize.Y)
 		);
+		
+		if (Input.IsActionJustReleased("shoot"))
+		{
+			Shoot();
+		}
 	}
-	
+
 	/// <summary>
 	/// Calculates the angle between current rotation and the mouse
 	/// </summary>
@@ -68,5 +82,13 @@ public partial class Player : CharacterBody2D
 	{
 		var direction = GetGlobalMousePosition() - GlobalPosition;
 		return Mathf.Atan2(direction.Y, direction.X);	
+	}
+
+	private void Shoot()
+	{
+		GD.Print("shoot");
+		// create bullet instance
+		var bulletInstance = _bulletScene.Instantiate();
+		AddChild(bulletInstance);
 	}
 }

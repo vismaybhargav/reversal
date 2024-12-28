@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_16myc"]
 size = Vector2(38, 79)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_hligi"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_nb61b"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -25,4 +25,5 @@ position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_16myc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_hligi")
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_nb61b")
