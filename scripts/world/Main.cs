@@ -10,7 +10,7 @@ public partial class Main : Node2D
 	public override void _Ready()
 	{
 		GD.Print("Main ready");
-		InstantiateNodes();
+		InstantiateChildNodes();
 		
 		_camera.MakeCurrent();
 	}
@@ -18,7 +18,7 @@ public partial class Main : Node2D
 	/// <summary>
 	/// Instantiates all the child nodes
 	/// </summary>
-	public void InstantiateNodes()
+	private void InstantiateChildNodes()
 	{
 		_player = GetNode<CharacterBody2D>("Player");
 		_camera = GetNode<Camera2D>("Player/Camera2D");
