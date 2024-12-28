@@ -1,16 +1,29 @@
 using Godot;
-using System;
 
-public partial class Bullet : Area2D
+namespace reversal.scripts.entity
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
+    public partial class Bullet : Area2D
+    {
+        [Export] public int BulletSpeedIncrement = 10;
+        [Export] public float BulletLifeTime = 0.75f;
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		Position += Vector2.Right;
-	}
+        public override void _Ready()
+        {
+            var timer = GetNode<Timer>("Timer");
+
+            timer.Connect("timeout", Callable.From(Explode));
+            timer.Start(BulletLifeTime);
+        }
+
+        public override void _Process(double delta)
+        {
+            Position += new Vector2(BulletSpeedIncrement, 0);
+        }
+
+        private void Explode()
+        {
+           GD.Print("Exploded");
+           QueueFree();
+        }
+    }
 }

@@ -9,6 +9,7 @@ public partial class Player : CharacterBody2D
 	
 	[Export]
 	public int PlayerSpeedIncrement = 1;
+	
 	[Export]
 	PackedScene _bulletScene = GD.Load<PackedScene>("res://scenes/Bullet.tscn");
 	
