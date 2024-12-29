@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dqu3w5h5dydgu"]
 
 [ext_resource type="Script" path="res://scripts/entity/bullet/Bullet.cs" id="1_3hbsr"]
-[ext_resource type="Texture2D" uid="uid://c76qfhuo4orf0" path="res://assets/gun/laser.svg" id="2_xncxc"]
+[ext_resource type="Texture2D" uid="uid://cxug4w8axj7uu" path="res://assets/gun/laser.svg" id="2_xncxc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_16myc"]
 size = Vector2(12, 24)

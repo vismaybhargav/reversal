@@ -87,6 +87,7 @@ public partial class Player : Area2D
 		}
 
 		Position += velocity * (float)delta;
+		Position = ClampPositionToWorldBoundary();
 
 		if (Input.IsActionJustReleased("shoot")) Shoot();
 	}
@@ -94,8 +95,8 @@ public partial class Player : Area2D
 	private Vector2 ClampPositionToWorldBoundary()
 	{
 		return new Vector2(
-			Mathf.Clamp(Position.X, 0, _screenSize.X),
-			Mathf.Clamp(Position.Y, 0, _screenSize.Y)	
+			Mathf.Clamp(Position.X, -1400, 2400),
+			Mathf.Clamp(Position.Y, -500, 2250)	
 		);
 	}
 	
