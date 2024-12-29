@@ -4,13 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://cxug4w8axj7uu" path="res://assets/gun/laser.svg" id="2_xncxc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_16myc"]
-size = Vector2(12, 24)
+size = Vector2(21.9999, 57)
 
 [node name="Bullet" type="Area2D"]
 script = ExtResource("1_3hbsr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2.20229e-20, 0)
+position = Vector2(38.5, 7.8861e-05)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_16myc")
 
@@ -23,4 +23,5 @@ texture = ExtResource("2_xncxc")
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
 [connection signal="timeout" from="Timer" to="." method="Explode"]

@@ -4,7 +4,7 @@ using Vector2 = Godot.Vector2;
 
 namespace reversal.scripts.entity;
 
-public partial class Player : Area2D
+public partial class Player : CharacterBody2D
 {
 	[Export] public int Speed { get; set; } = 400;
 	[Export] public float PlayerFireCooldown = 0.25f;
@@ -155,7 +155,7 @@ public partial class Player : Area2D
 		
 	}
 
-	private void OnPlayerHit(Bullet bullet)
+	public void OnPlayerHit(Bullet bullet)
 	{
 		_health -= bullet.Damage;
 		EmitSignal("PlayerHealthChanged", _health);

@@ -9,4 +9,3 @@ DeviationIntensityRadians = 0.5
 BulletSpeed = 1500
 BulletLifeTime = 1.25
 CameraShakeIntensity = 10
-Damage = 50.0

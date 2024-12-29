@@ -26,16 +26,16 @@ public partial class DebugInfo : CanvasLayer
 	public override void _Process(double delta)
 	{
 		_label.Text = $"""
-		               DEBUG_BUILD - DEVELOPER: {MatchDev(OS.GetName())}
-		               FPS: {Engine.GetFramesPerSecond()}
-		               Architecture: {Engine.GetArchitectureName()}
-		               OS: {OS.GetName()} {OS.GetVersion()}
-		               CPU: {OS.GetProcessorName()} 
-		               Cores: {OS.GetProcessorCount()}
-		               GPU: {RenderingServer.GetRenderingDevice().GetDeviceName()}
-		               Player Pos: {_player.Position}
-		               Bullet Type: {_player.BulletScene.Instantiate().GetName()}
-		               """;
+					   DEBUG_BUILD - DEVELOPER: {MatchDev(OS.GetName())}
+					   FPS: {Engine.GetFramesPerSecond()}
+					   Architecture: {Engine.GetArchitectureName()}
+					   OS: {OS.GetName()} {OS.GetVersion()}
+					   CPU: {OS.GetProcessorName()} 
+					   Cores: {OS.GetProcessorCount()}
+					   GPU: {RenderingServer.GetRenderingDevice().GetDeviceName()}
+					   Player Pos: {_player.Position}
+					   Bullet Type: {_player.BulletScene.Instantiate().GetName()}
+					   """;
 	}
 
 	private static string MatchDev(string osName)

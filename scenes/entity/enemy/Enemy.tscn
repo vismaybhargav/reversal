@@ -1,45 +1,45 @@
-[gd_scene load_steps=18 format=3 uid="uid://bp1fhbmf83xsy"]
+[gd_scene load_steps=18 format=3 uid="uid://bdwnid8dehdry"]
 
-[ext_resource type="Script" path="res://scripts/entity/Player.cs" id="1_hew8j"]
-[ext_resource type="PackedScene" uid="uid://18fe0pwoksuu" path="res://scenes/entity/bullet/HeavyBullet.tscn" id="2_3o1d2"]
-[ext_resource type="Texture2D" uid="uid://df0tl07nrv0ow" path="res://assets/player/playerwalk8.svg" id="2_n5jl2"]
-[ext_resource type="Texture2D" uid="uid://bqk63baohk4eh" path="res://assets/player/playerwalk1player_rest.svg" id="3_5o5a1"]
-[ext_resource type="Shape2D" uid="uid://dkthbl75qp8vv" path="res://scenes/entity/player/res/CollisionShape.tres" id="3_gg4vi"]
-[ext_resource type="Texture2D" uid="uid://6sx7x0bbmi8l" path="res://assets/player/playerwalk2.svg" id="4_p78it"]
-[ext_resource type="Texture2D" uid="uid://llpf2g0ukqcf" path="res://assets/player/playerwalk3.svg" id="5_a4616"]
-[ext_resource type="Texture2D" uid="uid://bw6a2bbfm8lat" path="res://assets/player/playerwalk4.svg" id="6_ewm0i"]
-[ext_resource type="Texture2D" uid="uid://dy33xnyw55k3v" path="res://assets/player/playerwalk6.svg" id="7_0ud75"]
-[ext_resource type="Texture2D" uid="uid://da22qt6aeow71" path="res://assets/player/playerwalk5.svg" id="8_4tt2v"]
-[ext_resource type="Texture2D" uid="uid://cs4418lwmsw5r" path="res://assets/player/playerwalk7.svg" id="9_fnkuc"]
-[ext_resource type="Texture2D" uid="uid://dgit11u22ne5d" path="res://assets/gun/laserflash.svg" id="10_nr2wg"]
-[ext_resource type="AudioStream" uid="uid://c7ey7hqw2wse8" path="res://assets/sound/lasersound.wav" id="11_m77hp"]
+[ext_resource type="Script" path="res://scripts/entity/Enemy.cs" id="1_744jq"]
+[ext_resource type="Shape2D" uid="uid://dkthbl75qp8vv" path="res://scenes/entity/player/res/CollisionShape.tres" id="3_7b5as"]
+[ext_resource type="Texture2D" uid="uid://df0tl07nrv0ow" path="res://assets/player/playerwalk8.svg" id="4_iihj8"]
+[ext_resource type="Texture2D" uid="uid://bqk63baohk4eh" path="res://assets/player/playerwalk1player_rest.svg" id="5_7fw0g"]
+[ext_resource type="Texture2D" uid="uid://6sx7x0bbmi8l" path="res://assets/player/playerwalk2.svg" id="6_ps00g"]
+[ext_resource type="Texture2D" uid="uid://llpf2g0ukqcf" path="res://assets/player/playerwalk3.svg" id="7_lcfaj"]
+[ext_resource type="Texture2D" uid="uid://bw6a2bbfm8lat" path="res://assets/player/playerwalk4.svg" id="8_uwbdd"]
+[ext_resource type="Texture2D" uid="uid://dy33xnyw55k3v" path="res://assets/player/playerwalk6.svg" id="9_idu1p"]
+[ext_resource type="Texture2D" uid="uid://da22qt6aeow71" path="res://assets/player/playerwalk5.svg" id="10_wvevb"]
+[ext_resource type="Texture2D" uid="uid://cs4418lwmsw5r" path="res://assets/player/playerwalk7.svg" id="11_gosxr"]
+[ext_resource type="Texture2D" uid="uid://dgit11u22ne5d" path="res://assets/gun/laserflash.svg" id="12_1x71j"]
+[ext_resource type="AudioStream" uid="uid://c7ey7hqw2wse8" path="res://assets/sound/lasersound.wav" id="13_tfkxy"]
+[ext_resource type="Script" path="res://scripts/util/PlayerCamera.cs" id="14_la7ml"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3m3xt"]
 animations = [{
 "frames": [{
 "duration": 0.2,
-"texture": ExtResource("2_n5jl2")
+"texture": ExtResource("4_iihj8")
 }, {
 "duration": 0.4,
-"texture": ExtResource("3_5o5a1")
+"texture": ExtResource("5_7fw0g")
 }, {
 "duration": 0.4,
-"texture": ExtResource("4_p78it")
+"texture": ExtResource("6_ps00g")
 }, {
 "duration": 0.4,
-"texture": ExtResource("5_a4616")
+"texture": ExtResource("7_lcfaj")
 }, {
 "duration": 0.4,
-"texture": ExtResource("6_ewm0i")
+"texture": ExtResource("8_uwbdd")
 }, {
 "duration": 0.4,
-"texture": ExtResource("7_0ud75")
+"texture": ExtResource("9_idu1p")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_4tt2v")
+"texture": ExtResource("10_wvevb")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_fnkuc")
+"texture": ExtResource("11_gosxr")
 }],
 "loop": true,
 "name": &"default",
@@ -107,14 +107,14 @@ _data = {
 "muzzle_flash": SubResource("Animation_girl0")
 }
 
-[node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_hew8j")
-BulletScene = ExtResource("2_3o1d2")
+[node name="Enemy" type="CharacterBody2D"]
+position = Vector2(576, 324)
+script = ExtResource("1_744jq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, -0.499999)
 scale = Vector2(5, 5)
-shape = ExtResource("3_gg4vi")
+shape = ExtResource("3_7b5as")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = 1.56455
@@ -131,7 +131,7 @@ position = Vector2(30, 30)
 [node name="MuzzleFlash" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(36, 31)
-texture = ExtResource("10_nr2wg")
+texture = ExtResource("12_1x71j")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -139,8 +139,9 @@ libraries = {
 }
 
 [node name="BulletSoundPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("11_m77hp")
+stream = ExtResource("13_tfkxy")
 volume_db = -7.0
-pitch_scale = 1.02
+pitch_scale = 2.8
 
-[connection signal="timeout" from="Timer" to="." method="OnCooldownTimeout"]
+[node name="PlayerCamera" type="Camera2D" parent="."]
+script = ExtResource("14_la7ml")

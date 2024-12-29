@@ -40,4 +40,23 @@ public partial class Bullet : Area2D
 		GD.Print("Exploded");
 		QueueFree();
 	}
+
+	public void OnBodyEntered(Node body)
+	{
+		GD.Print("TEST TEST TEST");
+		
+		if (body is Player player)
+		{
+			GD.Print("PLAYER HIT");
+			player.OnPlayerHit(this);	
+			QueueFree();
+		}
+		
+		if (body is Enemy enemy)
+		{
+			GD.Print("ENEMY HIT");
+			enemy.OnEnemyHit(this);
+			QueueFree();
+		}
+	}
 }
