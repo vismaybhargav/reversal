@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bp1fhbmf83xsy"]
+[gd_scene load_steps=17 format=3 uid="uid://bp1fhbmf83xsy"]
 
 [ext_resource type="Script" path="res://scripts/entity/Player.cs" id="1_hew8j"]
 [ext_resource type="Texture2D" uid="uid://b4eqatqy4u4jd" path="res://assets/player/playerwalk8.svg" id="2_n5jl2"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://be3ixckvoghgm" path="res://assets/player/playerwalk5.svg" id="8_4tt2v"]
 [ext_resource type="Texture2D" uid="uid://ds322pfnwrr45" path="res://assets/player/playerwalk7.svg" id="9_fnkuc"]
 [ext_resource type="Texture2D" uid="uid://1qs8udyl0ycn" path="res://assets/gun/laserflash.svg" id="10_nr2wg"]
+[ext_resource type="AudioStream" uid="uid://g4aq1e6ck0r5" path="res://assets/sound/lasersound.wav" id="11_m77hp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1q7kq"]
 size = Vector2(12.6, 15.4)
@@ -135,5 +136,10 @@ texture = ExtResource("10_nr2wg")
 libraries = {
 "": SubResource("AnimationLibrary_rcehr")
 }
+
+[node name="BulletSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_m77hp")
+volume_db = -7.0
+pitch_scale = 2.8
 
 [connection signal="timeout" from="Timer" to="." method="OnCooldownTimeout"]
