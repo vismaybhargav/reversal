@@ -30,6 +30,7 @@ public partial class Player : Area2D
 	private Marker2D _endOfGun;
 	private AnimationPlayer _animationPlayer;
 	private AudioStreamPlayer2D _audioPlayer;
+	private AnimatedSprite2D _sprite;
 	
 	public override void _Ready()
 	{
@@ -45,6 +46,7 @@ public partial class Player : Area2D
 		_endOfGun = GetNode<Marker2D>("EndOfGun");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_audioPlayer = GetNode<AudioStreamPlayer2D>("BulletSoundPlayer");
+		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 	}
 
 	private void InstantiateNodes()
@@ -72,10 +74,20 @@ public partial class Player : Area2D
 		
 		if(Input.IsActionJustReleased("ui_accept")) OnPlayerHit(new HeavyBullet());
 
-		if (velocity.Length() > 0) velocity = velocity.Normalized() * Speed;
+		if (velocity.Length() > 0)
+		{
+			velocity = velocity.Normalized() * Speed;
+			_sprite.Play();
+		}
+
+		if (velocity.Length() == 0)
+		{
+			_sprite.Frame = 0;
+			_sprite.Stop();
+		}
 
 		Position += velocity * (float)delta;
-		
+
 		if (Input.IsActionJustReleased("shoot")) Shoot();
 	}
 
