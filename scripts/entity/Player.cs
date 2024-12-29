@@ -1,17 +1,15 @@
 using Godot;
+using Vector2 = Godot.Vector2;
 
 namespace reversal.scripts.entity;
 
-public partial class Player : CharacterBody2D
+public partial class Player : Area2D
 {
-	[Export] 
-	public int Speed { get; set; } = 400;
+	[Export] public int Speed { get; set; } = 400;
 	
-	[Export]
-	public int PlayerSpeedIncrement = 1;
+	[Export] public int PlayerSpeed = 1;
 	
-	[Export]
-	PackedScene _bulletScene = GD.Load<PackedScene>("res://scenes/Bullet.tscn");
+	[Export] public PackedScene BulletScene = GD.Load<PackedScene>("res://scenes/entity/bullet/Bullet.tscn");
 
 	[Export] public float PlayerFireCooldown = 0.25f;
 	
@@ -21,6 +19,9 @@ public partial class Player : CharacterBody2D
 
 	[Signal]
 	public delegate void PlayerFiredEventHandler(PackedScene bullet, Vector2 pos, Vector2 dir);
+
+	[Signal]
+	public delegate void PlayerHitEventHandler();
 	
 	// Child Nodes
 	private Timer _timer;
@@ -52,44 +53,29 @@ public partial class Player : CharacterBody2D
 		// WASD movements
 		var velocity = Vector2.Zero;
 
-		if (Input.IsActionPressed("move_up"))
-		{
-			velocity.Y -= PlayerSpeedIncrement;
-		}
+		if (Input.IsActionPressed("move_up")) { velocity.Y -= PlayerSpeed; }
 		
-		if (Input.IsActionPressed("move_down"))
-		{
-			velocity.Y += PlayerSpeedIncrement;
-		}
+		if (Input.IsActionPressed("move_down")) { velocity.Y += PlayerSpeed; }
 				
-		if (Input.IsActionPressed("move_left"))
-		{
-			velocity.X -= PlayerSpeedIncrement;
-		}
+		if (Input.IsActionPressed("move_left")) { velocity.X -= PlayerSpeed; }
 						
-		if (Input.IsActionPressed("move_right"))
-		{
-			velocity.X += PlayerSpeedIncrement;
-		}
+		if (Input.IsActionPressed("move_right")) { velocity.X += PlayerSpeed; }
 
-		if (velocity.Length() > 0)
-		{
-			velocity = velocity.Normalized() * Speed;
-		}
+		if (velocity.Length() > 0) velocity = velocity.Normalized() * Speed;
 
 		Position += velocity * (float)delta;
 		
-		Position = new Vector2(
-			x: Mathf.Clamp(Position.X, 0, _screenSize.X),
-			y: Mathf.Clamp(Position.Y, 0, _screenSize.Y)
-		);
-		
-		if (Input.IsActionJustReleased("shoot"))
-		{
-			Shoot();
-		}
+		if (Input.IsActionJustReleased("shoot")) Shoot();
 	}
 
+	private Vector2 ClampPositionToWorldBoundary()
+	{
+		return new Vector2(
+			Mathf.Clamp(Position.X, 0, _screenSize.X),
+			Mathf.Clamp(Position.Y, 0, _screenSize.Y)	
+		);
+	}
+	
 	/// <summary>
 	/// Calculates the angle between current rotation and the mouse
 	/// </summary>
@@ -110,7 +96,7 @@ public partial class Player : CharacterBody2D
 		GD.Print(_endOfGun.Position);
 		
 		// THE BUG HERE WAS THAT I WAS PASSING IN _endOfGun.Position WHICH IS RELATIVE NOT ABSOLUTE OMG IM DUMBB - VISMAY
-		EmitSignal("PlayerFired", _bulletScene, _endOfGun.GlobalPosition, Vector2.Right.Rotated(GlobalRotation));
+		EmitSignal("PlayerFired", BulletScene, _endOfGun.GlobalPosition, Vector2.Right.Rotated(GlobalRotation));
 	}
 
 	private void OnCooldownTimeout()

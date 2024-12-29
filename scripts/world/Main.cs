@@ -6,15 +6,16 @@ namespace reversal.scripts.world;
 
 public partial class Main : Node2D
 {
-	private CharacterBody2D _player;
-	private BulletManager _bulletManager;
+	private Area2D _player;
 	
 	private Camera2D _camera;
+	private CanvasLayer _dbgUi;
 	
 	private void InstantiateChildNodes()
 	{
-		_player = GetNode<CharacterBody2D>("Player");
+		_player = GetNode<Area2D>("Player");
 		_camera = GetNode<Camera2D>("Player/PlayerCamera");
+		_dbgUi = GetNode<CanvasLayer>("DBG_Info");
 	}
 	
 	public override void _Ready()
@@ -22,10 +23,9 @@ public partial class Main : Node2D
 		GD.Print("Main ready");
 		InstantiateChildNodes();
 		
+		if(!OS.IsDebugBuild()) _dbgUi.Hide();
+		
 		_camera.MakeCurrent();
-
-		//_bulletManager = GetNode<BulletManager>("BulletManager");
-		//_player.Connect("PlayerFired", new Callable(_bulletManager, nameof(_bulletManager.HandleBulletSpawned)));
 	}
 	
 	
