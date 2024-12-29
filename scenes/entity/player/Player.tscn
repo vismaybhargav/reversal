@@ -12,6 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://dv538pf3x2jqf" path="res://assets/player/playerwalk5.svg" id="8_4tt2v"]
 [ext_resource type="Texture2D" uid="uid://c8x0soxivfgue" path="res://assets/player/playerwalk7.svg" id="9_fnkuc"]
 [ext_resource type="Texture2D" uid="uid://bs70fegom6k5c" path="res://assets/gun/laserflash.svg" id="10_nr2wg"]
+[ext_resource type="AudioStream" uid="uid://g4aq1e6ck0r5" path="res://assets/sound/lasersound.wav" id="11_m77hp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1q7kq"]
+size = Vector2(12.6, 15.4)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3m3xt"]
 animations = [{
@@ -136,13 +140,9 @@ libraries = {
 "": SubResource("AnimationLibrary_rcehr")
 }
 
-[node name="CollisionArea" type="Area2D" parent="."]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea"]
-visible = false
-position = Vector2(1.5, -0.5)
-scale = Vector2(5, 5)
-shape = ExtResource("3_gg4vi")
+[node name="BulletSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_m77hp")
+volume_db = -7.0
+pitch_scale = 2.8
 
 [connection signal="timeout" from="Timer" to="." method="OnCooldownTimeout"]
