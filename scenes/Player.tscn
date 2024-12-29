@@ -1,14 +1,15 @@
-[gd_scene load_steps=12 format=3 uid="uid://bp1fhbmf83xsy"]
+[gd_scene load_steps=16 format=3 uid="uid://bp1fhbmf83xsy"]
 
 [ext_resource type="Script" path="res://scripts/entity/Player.cs" id="1_hew8j"]
-[ext_resource type="Texture2D" uid="uid://csg2yo5jekvbq" path="res://assets/player/playerwalk8.svg" id="2_n5jl2"]
-[ext_resource type="Texture2D" uid="uid://cdvwkbem1tcja" path="res://assets/player/playerwalk1player_rest.svg" id="3_5o5a1"]
-[ext_resource type="Texture2D" uid="uid://d2w7dsax3623i" path="res://assets/player/playerwalk2.svg" id="4_p78it"]
-[ext_resource type="Texture2D" uid="uid://s5dr8ke140sv" path="res://assets/player/playerwalk3.svg" id="5_a4616"]
-[ext_resource type="Texture2D" uid="uid://c8b4ygmh3hw3a" path="res://assets/player/playerwalk4.svg" id="6_ewm0i"]
-[ext_resource type="Texture2D" uid="uid://dka0v78g5bcly" path="res://assets/player/playerwalk6.svg" id="7_0ud75"]
-[ext_resource type="Texture2D" uid="uid://dv538pf3x2jqf" path="res://assets/player/playerwalk5.svg" id="8_4tt2v"]
-[ext_resource type="Texture2D" uid="uid://c8x0soxivfgue" path="res://assets/player/playerwalk7.svg" id="9_fnkuc"]
+[ext_resource type="Texture2D" uid="uid://b4eqatqy4u4jd" path="res://assets/player/playerwalk8.svg" id="2_n5jl2"]
+[ext_resource type="Texture2D" uid="uid://be8n84bokmx23" path="res://assets/player/playerwalk1player_rest.svg" id="3_5o5a1"]
+[ext_resource type="Texture2D" uid="uid://crgmmqqbppecp" path="res://assets/player/playerwalk2.svg" id="4_p78it"]
+[ext_resource type="Texture2D" uid="uid://q44ll84ajl7b" path="res://assets/player/playerwalk3.svg" id="5_a4616"]
+[ext_resource type="Texture2D" uid="uid://do6sh58k4d4er" path="res://assets/player/playerwalk4.svg" id="6_ewm0i"]
+[ext_resource type="Texture2D" uid="uid://c0kuthbcjkblw" path="res://assets/player/playerwalk6.svg" id="7_0ud75"]
+[ext_resource type="Texture2D" uid="uid://be3ixckvoghgm" path="res://assets/player/playerwalk5.svg" id="8_4tt2v"]
+[ext_resource type="Texture2D" uid="uid://ds322pfnwrr45" path="res://assets/player/playerwalk7.svg" id="9_fnkuc"]
+[ext_resource type="Texture2D" uid="uid://1qs8udyl0ycn" path="res://assets/gun/laserflash.svg" id="10_nr2wg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1q7kq"]
 size = Vector2(12.6, 15.4)
@@ -45,6 +46,67 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_girl0"]
+resource_name = "muzzle_flash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MuzzleFlash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MuzzleFlash:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 1.05)]
+}
+
+[sub_resource type="Animation" id="Animation_mfus5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MuzzleFlash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MuzzleFlash:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rcehr"]
+_data = {
+"RESET": SubResource("Animation_mfus5"),
+"muzzle_flash": SubResource("Animation_girl0")
+}
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_hew8j")
 
@@ -63,5 +125,15 @@ autostart = true
 
 [node name="EndOfGun" type="Marker2D" parent="."]
 position = Vector2(30, 30)
+
+[node name="MuzzleFlash" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(36, 31)
+texture = ExtResource("10_nr2wg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rcehr")
+}
 
 [connection signal="timeout" from="Timer" to="." method="OnCooldownTimeout"]

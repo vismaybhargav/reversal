@@ -3,10 +3,10 @@ using Godot;
 namespace reversal.scripts.entity.bullet;
 public partial class Bullet : Area2D
 {
-	[Export] public int BulletSpeedIncrement = 10;
+	[Export] public int BulletSpeedIncrement = 2500;
 	[Export] public float BulletLifeTime = 0.75f;
 	private Vector2 _velocity = Vector2.Zero;
-		
+
 	// Child Nodes
 	private Timer _timer;
 
@@ -29,8 +29,7 @@ public partial class Bullet : Area2D
 
 	public override void _Process(double delta)
 	{
-		//TODO: Figure out how to multiply this by delta time
-		Position += _velocity;
+		Position += _velocity * (float)delta;
 	}
 
 	private void Explode()

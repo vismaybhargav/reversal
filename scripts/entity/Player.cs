@@ -25,6 +25,7 @@ public partial class Player : CharacterBody2D
 	// Child Nodes
 	private Timer _timer;
 	private Marker2D _endOfGun;
+	private AnimationPlayer _animationPlayer;
 	
 	public override void _Ready()
 	{
@@ -37,6 +38,7 @@ public partial class Player : CharacterBody2D
 	{
 		_timer = GetNode<Timer>("Timer");
 		_endOfGun = GetNode<Marker2D>("EndOfGun");
+		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 	}
 
 	public override void _Process(double delta)
@@ -102,6 +104,7 @@ public partial class Player : CharacterBody2D
 	{
 		if (!_canShoot) return;
 		
+		_animationPlayer.Play("muzzle_flash");
 		_canShoot = false;
 		_timer.Start(PlayerFireCooldown);
 		GD.Print(_endOfGun.Position);
