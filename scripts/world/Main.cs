@@ -1,5 +1,4 @@
 using Godot;
-using reversal.scripts.entity;
 using reversal.scripts.entity.bullet;
 
 namespace reversal.scripts.world;
@@ -9,8 +8,6 @@ public partial class Main : Node2D
 	private CharacterBody2D _player;
 	private Camera2D _camera;
 
-	private BulletManager _bulletManager;
-	
 	public override void _Ready()
 	{
 		GD.Print("Main ready");
