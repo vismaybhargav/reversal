@@ -14,7 +14,7 @@ public partial class BulletManager : Node2D
 	{
 	}
 
-	public void HandleBulletSpawned(Bullet bullet, Vector2 pos)
+	private void HandleBulletSpawned(Bullet bullet, Vector2 pos)
 	{
 		GD.Print("Bullet spawned");
 		AddChild(bullet);
