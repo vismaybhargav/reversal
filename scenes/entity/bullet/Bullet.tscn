@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqu3w5h5dydgu"]
+
+[ext_resource type="Script" path="res://scripts/entity/bullet/Bullet.cs" id="1_3hbsr"]
+[ext_resource type="Texture2D" uid="uid://c76qfhuo4orf0" path="res://assets/gun/laser.svg" id="2_xncxc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_16myc"]
+size = Vector2(12, 24)
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_8ehv7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.20229e-20, 0)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_16myc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2.98023e-08, 0.250001)
+rotation = 1.5708
+scale = Vector2(2.94, 3)
+texture = ExtResource("2_xncxc")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="Explode"]

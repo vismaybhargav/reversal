@@ -1,0 +1,146 @@
+[gd_scene load_steps=18 format=3 uid="uid://bp1fhbmf83xsy"]
+
+[ext_resource type="Script" path="res://scripts/entity/Player.cs" id="1_hew8j"]
+[ext_resource type="PackedScene" uid="uid://18fe0pwoksuu" path="res://scenes/entity/bullet/HeavyBullet.tscn" id="2_3o1d2"]
+[ext_resource type="Texture2D" uid="uid://csg2yo5jekvbq" path="res://assets/player/playerwalk8.svg" id="2_n5jl2"]
+[ext_resource type="Texture2D" uid="uid://cdvwkbem1tcja" path="res://assets/player/playerwalk1player_rest.svg" id="3_5o5a1"]
+[ext_resource type="Shape2D" uid="uid://dkthbl75qp8vv" path="res://scenes/entity/player/res/CollisionShape.tres" id="3_gg4vi"]
+[ext_resource type="Texture2D" uid="uid://d2w7dsax3623i" path="res://assets/player/playerwalk2.svg" id="4_p78it"]
+[ext_resource type="Texture2D" uid="uid://s5dr8ke140sv" path="res://assets/player/playerwalk3.svg" id="5_a4616"]
+[ext_resource type="Texture2D" uid="uid://c8b4ygmh3hw3a" path="res://assets/player/playerwalk4.svg" id="6_ewm0i"]
+[ext_resource type="Texture2D" uid="uid://dka0v78g5bcly" path="res://assets/player/playerwalk6.svg" id="7_0ud75"]
+[ext_resource type="Texture2D" uid="uid://dv538pf3x2jqf" path="res://assets/player/playerwalk5.svg" id="8_4tt2v"]
+[ext_resource type="Texture2D" uid="uid://c8x0soxivfgue" path="res://assets/player/playerwalk7.svg" id="9_fnkuc"]
+[ext_resource type="Texture2D" uid="uid://bs70fegom6k5c" path="res://assets/gun/laserflash.svg" id="10_nr2wg"]
+[ext_resource type="AudioStream" uid="uid://cdxsaifavhu0l" path="res://assets/sound/lasersound.wav" id="11_m77hp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3m3xt"]
+animations = [{
+"frames": [{
+"duration": 0.4,
+"texture": ExtResource("2_n5jl2")
+}, {
+"duration": 0.4,
+"texture": ExtResource("3_5o5a1")
+}, {
+"duration": 0.4,
+"texture": ExtResource("4_p78it")
+}, {
+"duration": 0.4,
+"texture": ExtResource("5_a4616")
+}, {
+"duration": 0.4,
+"texture": ExtResource("6_ewm0i")
+}, {
+"duration": 0.4,
+"texture": ExtResource("7_0ud75")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_4tt2v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_fnkuc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_mfus5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MuzzleFlash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MuzzleFlash:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_girl0"]
+resource_name = "muzzle_flash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MuzzleFlash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MuzzleFlash:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 1.05)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rcehr"]
+_data = {
+"RESET": SubResource("Animation_mfus5"),
+"muzzle_flash": SubResource("Animation_girl0")
+}
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_hew8j")
+BulletScene = ExtResource("2_3o1d2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, -0.499999)
+scale = Vector2(5, 5)
+shape = ExtResource("3_gg4vi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.56455
+sprite_frames = SubResource("SpriteFrames_3m3xt")
+frame_progress = 0.628791
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="EndOfGun" type="Marker2D" parent="."]
+position = Vector2(30, 30)
+
+[node name="MuzzleFlash" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(36, 31)
+texture = ExtResource("10_nr2wg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rcehr")
+}
+
+[node name="BulletSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_m77hp")
+volume_db = -7.0
+pitch_scale = 2.8
+
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]
+[connection signal="timeout" from="Timer" to="." method="OnCooldownTimeout"]
