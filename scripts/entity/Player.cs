@@ -26,6 +26,7 @@ public partial class Player : CharacterBody2D
 	private Timer _timer;
 	private Marker2D _endOfGun;
 	private AnimationPlayer _animationPlayer;
+	private AudioStreamPlayer2D _audioPlayer;
 	
 	public override void _Ready()
 	{
@@ -39,6 +40,7 @@ public partial class Player : CharacterBody2D
 		_timer = GetNode<Timer>("Timer");
 		_endOfGun = GetNode<Marker2D>("EndOfGun");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		_audioPlayer = GetNode<AudioStreamPlayer2D>("BulletSoundPlayer");
 	}
 
 	public override void _Process(double delta)
@@ -105,6 +107,7 @@ public partial class Player : CharacterBody2D
 		if (!_canShoot) return;
 		
 		_animationPlayer.Play("muzzle_flash");
+		_audioPlayer.Play();
 		_canShoot = false;
 		_timer.Start(PlayerFireCooldown);
 		GD.Print(_endOfGun.Position);
