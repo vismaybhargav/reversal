@@ -1,4 +1,9 @@
-[gd_scene format=3 uid="uid://cbql7lm502321"]
+[gd_scene load_steps=5 format=3 uid="uid://cbql7lm502321"]
+
+[ext_resource type="Script" path="res://scripts/ui/ui_main.gd" id="1_22a8e"]
+[ext_resource type="Texture2D" uid="uid://ctsbaimi5py6m" path="res://assets/ui/healthbar/shield.png" id="1_wpxo8"]
+[ext_resource type="Texture2D" uid="uid://bo04f41ebnx64" path="res://assets/ui/healthbar/bar_shadow_square_small.png" id="2_jkbxm"]
+[ext_resource type="Texture2D" uid="uid://dlfc6jk7lntf7" path="res://assets/ui/healthbar/bar_square_gloss_small_green.png" id="3_yfgi0"]
 
 [node name="UI_Main" type="Control"]
 layout_mode = 3
@@ -7,3 +12,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.00484, 1.01083)
+script = ExtResource("1_22a8e")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 10.69
+offset_top = 6.775
+offset_right = 238.69
+offset_bottom = 38.775
+scale = Vector2(1.925, 1.925)
+
+[node name="HBox" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Margin/HBox"]
+layout_mode = 2
+texture = ExtResource("1_wpxo8")
+expand_mode = 3
+
+[node name="HealthBar" type="TextureProgressBar" parent="Margin/HBox"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+max_value = 200.0
+value = 200.0
+texture_under = ExtResource("2_jkbxm")
+texture_progress = ExtResource("3_yfgi0")

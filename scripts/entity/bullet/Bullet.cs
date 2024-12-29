@@ -6,7 +6,7 @@ public partial class Bullet : Area2D
 	[Export] public int   BulletSpeed          = 2500;
 	[Export] public float BulletLifeTime       = 0.75f;
 	[Export] public int   CameraShakeIntensity = 5;
-	[Export] public float Damage               = 20;
+	[Export] public int Damage               = 20;
 	
 	private Vector2 _velocity = Vector2.Zero;
 

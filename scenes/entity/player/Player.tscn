@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bp1fhbmf83xsy"]
+[gd_scene load_steps=18 format=3 uid="uid://bp1fhbmf83xsy"]
 
 [ext_resource type="Script" path="res://scripts/entity/Player.cs" id="1_hew8j"]
 [ext_resource type="PackedScene" uid="uid://18fe0pwoksuu" path="res://scenes/entity/bullet/HeavyBullet.tscn" id="2_3o1d2"]
@@ -12,10 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dv538pf3x2jqf" path="res://assets/player/playerwalk5.svg" id="8_4tt2v"]
 [ext_resource type="Texture2D" uid="uid://c8x0soxivfgue" path="res://assets/player/playerwalk7.svg" id="9_fnkuc"]
 [ext_resource type="Texture2D" uid="uid://bs70fegom6k5c" path="res://assets/gun/laserflash.svg" id="10_nr2wg"]
-[ext_resource type="AudioStream" uid="uid://g4aq1e6ck0r5" path="res://assets/sound/lasersound.wav" id="11_m77hp"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1q7kq"]
-size = Vector2(12.6, 15.4)
+[ext_resource type="AudioStream" uid="uid://cdxsaifavhu0l" path="res://assets/sound/lasersound.wav" id="11_m77hp"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3m3xt"]
 animations = [{
@@ -145,4 +142,5 @@ stream = ExtResource("11_m77hp")
 volume_db = -7.0
 pitch_scale = 2.8
 
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]
 [connection signal="timeout" from="Timer" to="." method="OnCooldownTimeout"]
