@@ -7,7 +7,7 @@
 size = Vector2(12, 24)
 
 [node name="Bullet" type="Area2D"]
-script = ExtResource("1_8ehv7")
+script = ExtResource("1_3hbsr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.20229e-20, 0)
