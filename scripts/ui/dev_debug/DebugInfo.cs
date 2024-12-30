@@ -19,7 +19,7 @@ public partial class DebugInfo : CanvasLayer
 	{
 		_label = GetNode<Label>("Label");
 		_main = (Main)GetParent();
-		_player = (Player)_main.GetChild(1);
+		_player = (Player)_main.GetChild(2);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -34,6 +34,8 @@ public partial class DebugInfo : CanvasLayer
 					   Cores: {OS.GetProcessorCount()}
 					   Player Pos: {_player.Position}
 					   Bullet Type: {_player.BulletScene.Instantiate().GetName()}
+					   Current Polarity: {_main.CurrentPolarity}
+					   Time until Switch: {((Timer)_main.GetChild(5)).TimeLeft}
 					   """;
 	}
 

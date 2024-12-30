@@ -3,26 +3,39 @@ using Godot;
 using Godot.Collections;
 using reversal.scripts.entity;
 using reversal.scripts.entity.bullet;
-using reversal.scripts.util;
 
 namespace reversal.scripts.world;
 
 public partial class Main : Node2D
 {
+	public enum Polarity
+	{
+		Positive,
+		Negative
+	}
+	
 	[Export] public int EnemyCount = 5;
 	[Export] public float EnemySpawnMinY = -450f;
 	[Export] public float EnemySpawnMaxY = 2240f;
+		
+	[Signal]
+	public delegate void PolaritySwitchEventHandler(int polarity); // 0 = Positive, 1 = Negative Godot being annoying with enums
+
+	public Polarity CurrentPolarity = Polarity.Positive;
 	
 	private CharacterBody2D _player;
-	
+	private Timer _polaritySwitchCountdown;
 	private Camera2D _camera;
 	private CanvasLayer _dbgUi;
+	private TileMapLayer _positiveTileMap;
+	private TileMapLayer _negativeTileMap;
 	
 	private void InstantiateChildNodes()
 	{
-		_player = GetNode<CharacterBody2D>("Player");
-		_camera = GetNode<Camera2D>("Player/PlayerCamera");
-		_dbgUi = GetNode<CanvasLayer>("DBG_Info");
+						 _player = GetNode<CharacterBody2D>("Player");
+						 _camera = GetNode<Camera2D>("Player/PlayerCamera");
+						 _dbgUi  = GetNode<CanvasLayer>("DBG_Info");
+		_polaritySwitchCountdown = GetNode<Timer>("PolaritySwitchCountdown");
 	}
 	
 	public override void _Ready()
@@ -60,5 +73,29 @@ public partial class Main : Node2D
 		var b = (Bullet)bullet.Instantiate();
 		AddChild(b);
 		b.Start(pos, dir);
+	}
+
+	private void OnPolaritySwitchCountdownTimeout()
+	{
+		CurrentPolarity = CurrentPolarity == Polarity.Positive ? Polarity.Negative : Polarity.Positive;
+		SwitchTilemap();
+		EmitSignal("PolaritySwitchEventHandler", (int)CurrentPolarity);
+	}
+	
+	private void SwitchTilemap() 
+	{
+		switch (CurrentPolarity)
+		{
+			case Polarity.Positive:
+				_positiveTileMap.Visible = true;
+				_negativeTileMap.Visible = false;
+				break;
+			case Polarity.Negative:
+				_positiveTileMap.Visible = false;
+				_negativeTileMap.Visible = true;
+				break;
+			default:
+				throw new ArgumentOutOfRangeException();
+		}
 	}
 }

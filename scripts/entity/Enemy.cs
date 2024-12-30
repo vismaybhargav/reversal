@@ -138,12 +138,4 @@ public partial class Enemy : CharacterBody2D
 		return _rand.RandfRange(-EnemyBulletDeviationRadians, EnemyBulletDeviationRadians);
 
 	}
-
-	// private void OnAreaEntered(Area2D area)
-	// {
-	// 	if (area is Bullet bullet)
-	// 	{
-	// 		EmitSignal("PlayerHit", bullet);
-	// 	}
-	// }
 }
