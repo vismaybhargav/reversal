@@ -6,7 +6,7 @@ public partial class Bullet : Area2D
 	[Export] public int   BulletSpeed          = 2500;
 	[Export] public float BulletLifeTime       = 0.75f;
 	[Export] public int   CameraShakeIntensity = 5;
-	[Export] public int Damage               = 20;
+	[Export] public int   Damage               = 20;
 	
 	private Vector2 _velocity = Vector2.Zero;
 
@@ -34,7 +34,7 @@ public partial class Bullet : Area2D
 	{
 		Position = pos;
 		Rotation = rotation;
-		_velocity = new Vector2((float)Mathf.Cos(Rotation), (float)Mathf.Sin(Rotation)) * BulletSpeed;
+		_velocity = new Vector2(Mathf.Cos(Rotation), Mathf.Sin(Rotation)) * BulletSpeed;
 	}
 
 	public override void _Process(double delta)
@@ -48,20 +48,19 @@ public partial class Bullet : Area2D
 		QueueFree();
 	}
 
-	protected void OnBodyEntered(Node body)
+	private void OnBodyEntered(Node body)
 	{
-		if (body is Player player)
+		switch (body)
 		{
-			GD.Print("PLAYER HIT");
-			player.OnPlayerHit(this);	
-			QueueFree();
+			case Player player:
+				GD.Print("PLAYER HIT");
+				player.OnPlayerHit(this);	
+				break;
+			case Enemy enemy:
+				GD.Print("ENEMY HIT");
+				enemy.OnEnemyHit(this);
+				break;
 		}
-		
-		if (body is Enemy enemy)
-		{
-			GD.Print("ENEMY HIT");
-			enemy.OnEnemyHit(this);
-			QueueFree();
-		}
+		QueueFree();
 	}
 }

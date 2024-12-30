@@ -105,33 +105,6 @@ public partial class Player : CharacterBody2D
 		);
 	}
 	
-	/// <summary>
-	/// Checks if the collision shape of the player contains the vector
-	/// </summary>
-	/// <param name="vec2">the vector to check</param>
-	/// <returns>true if the vector is in the shape, false otherwise</returns>
-	// private bool DoesShapeContain(Vector2 vec2)
-	// {
-	// 	var shape = (RectangleShape2D)_collisionShape.Shape;
-		
-	// 	//TODO: Fix this math
-	// 	return IsBetween(vec2.X, _collisionShape.Position.X + shape.Size.X, _collisionShape.Position.X) && 
-	// 	   IsBetween(vec2.Y,  _collisionShape.Position.Y + shape.Size.Y, _collisionShape.Position.Y);
-	// }
-	
-	/// <summary>
-	/// Checks if the provided value is in between max and min
-	/// </summary>
-	/// <param name="val">Provided value</param>
-	/// <param name="max">Max value</param>
-	/// <param name="min">Minimum Value</param>
-	/// <returns> max lessThanEqual val greaterThanEqual min </returns>
-	private static bool IsBetween(double val, double max, double min)
-	{
-		return val >= min && val <= max;
-
-	}
-
 	private void Shoot()
 	{
 		if (!_canShoot) return;

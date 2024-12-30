@@ -8,6 +8,7 @@ public partial class Enemy : CharacterBody2D
 	[Export] public int EnemySpeed = 35;
 	private const int EnemyHealth = 100;
 	[Export] public float EnemyFireCooldown = 1f;
+	[Export] public float EnemyBulletDeviationRadians = 0.3f;
 	
 	[Export] public PackedScene BulletScene = GD.Load<PackedScene>("res://scenes/entity/bullet/Bullet.tscn");
 	
@@ -17,6 +18,7 @@ public partial class Enemy : CharacterBody2D
 	private int _health = EnemyHealth;
 	private bool _canShoot = true;
 	private bool _inLineOfSight = false;
+	private RandomNumberGenerator _rand = new();
 
 	private Area2D _lineOfSight;
 	private CharacterBody2D _player;
@@ -86,29 +88,22 @@ public partial class Enemy : CharacterBody2D
 		_colorResetTimer.Start(0.1f);
 		
 		GD.Print("enemy hit! ", _health);
-		if (_health <= 0)
-		{
-			QueueFree();
-		}
+		if (_health <= 0) QueueFree();
 	}
 	
 	// TERRIBLE name ngl
 	private void OnPlayerInLineOfSight(Node body)
 	{
-		if (body is Player player)
-		{
-			GD.Print("Player In LineOfSight");
-			_inLineOfSight = true;
-		}
+		if (body is not Player) return;
+		GD.Print("Player In LineOfSight");
+		_inLineOfSight = true;
 	}
 
 	private void OnPlayerOutOfLineOfSight(Node body)
 	{
-		if (body is Player player)
-		{
-			GD.Print("Player out of LineOfSight");
-			_inLineOfSight = false;
-		}
+		if (body is not Player) return;
+		GD.Print("Player out of LineOfSight");
+		_inLineOfSight = false;
 	}
 	
 	private void Shoot()
@@ -120,7 +115,7 @@ public partial class Enemy : CharacterBody2D
 		var b = (Bullet)BulletScene.Instantiate();
 		AddChild(b);
 
-		b.StartFromRotation(_endOfGun.Position, _endOfGun.Rotation);
+		b.StartFromRotation(_endOfGun.Position, _endOfGun.Rotation + GenerateRandomDeviation());
 
 		_audioPlayer.Play();
 		_canShoot = false;
@@ -136,6 +131,12 @@ public partial class Enemy : CharacterBody2D
 	private void OnColorResetTimeout()
 	{
 		_sprite.Modulate = new Color(1, 1, 1, 1);	
+	}
+
+	private float GenerateRandomDeviation()
+	{
+		return _rand.RandfRange(-EnemyBulletDeviationRadians, EnemyBulletDeviationRadians);
+
 	}
 
 	// private void OnAreaEntered(Area2D area)
