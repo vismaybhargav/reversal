@@ -12,13 +12,14 @@ public partial class Player : CharacterBody2D
 	[Export] public int PlayerHealIncrement = 5;
 	[Export] public int MaxPlayerHealth = 200;
 	[Export] public PackedScene BulletScene = GD.Load<PackedScene>("res://scenes/entity/bullet/Bullet.tscn");
+	[Export] public PackedScene GameOverScene = GD.Load<PackedScene>("res://scenes/ui/GameOverScreen.tscn");
 	[Export] public int ClosedProximityRadius = 10;
 	
 	private Vector2 _screenSize;
 	private int _playerSpeedIncrement  = 1;
 	private bool _canShoot = true;
 	private bool _canHeal = false;
-	private int _health;
+	public int Health;
 
 	[Signal]
 	public delegate void PlayerFiredEventHandler(PackedScene bullet, Vector2 pos, Vector2 dir);
@@ -34,6 +35,7 @@ public partial class Player : CharacterBody2D
 	
 	// Child Nodes
 	private Timer _timer;
+	private Timer _healingCooldownTimer;
 	private Marker2D _endOfGun;
 	private AnimationPlayer _animationPlayer;
 	private AudioStreamPlayer2D _audioPlayer;
@@ -43,7 +45,7 @@ public partial class Player : CharacterBody2D
 	
 	public override void _Ready()
 	{
-		_health = MaxPlayerHealth;
+		Health = MaxPlayerHealth;
 		InstantiateChildNodes();
 		// INIT HERE
 		_screenSize = GetViewportRect().Size; // we might need this later? lol
@@ -52,6 +54,7 @@ public partial class Player : CharacterBody2D
 	private void InstantiateChildNodes()
 	{
 		_timer = GetNode<Timer>("Timer");
+		_healingCooldownTimer = GetNode<Timer>("HealingTimer");
 		_endOfGun = GetNode<Marker2D>("EndOfGun");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_audioPlayer = GetNode<AudioStreamPlayer2D>("BulletSoundPlayer");
@@ -99,8 +102,15 @@ public partial class Player : CharacterBody2D
 		Position = ClampPositionToWorldBoundary();
 
 		if (Input.IsActionJustReleased("shoot")) Shoot();
-		
-		
+
+		if (Health > 0 && _canHeal)
+		{
+			Health += PlayerHealIncrement;
+			Health = Mathf.Clamp(Health, 0, MaxPlayerHealth);
+			EmitSignal("PlayerHealthChanged", Health);
+			_canHeal = false;
+			_healingCooldownTimer.Start(PlayerHealCooldown);
+		}
 	}
 
 	private Vector2 ClampPositionToWorldBoundary()
@@ -118,7 +128,7 @@ public partial class Player : CharacterBody2D
 		_animationPlayer.Play("muzzle_flash");
 		_audioPlayer.Play();
 		_canShoot = false;
-		_timer.Start(PlayerFireCooldown);
+		_healingCooldownTimer.Start(PlayerFireCooldown);
 		GD.Print(_endOfGun.Position);
 		
 		// THE BUG HERE WAS THAT I WAS PASSING IN _endOfGun.Position WHICH IS RELATIVE NOT ABSOLUTE OMG IM DUMBB - VISMAY
@@ -128,6 +138,12 @@ public partial class Player : CharacterBody2D
 	private void OnCooldownTimeout()
 	{
 		_canShoot = true;
+	}
+	
+	private void OnHealingCooldownTimeout()
+	{
+		GD.Print("Can heal now");
+		_canHeal = true;
 	}
 
 	private void OnAreaEntered(Area2D area)
@@ -145,23 +161,28 @@ public partial class Player : CharacterBody2D
 		//TODO: This needs to be implemented, this is very wrong right now - VISMAY :sob:
 		if (_polarity == Main.Polarity.Positive) enemy.Velocity = -enemy.Velocity;
 		else enemy.EnemySpeed *= 2;
-
 	}
 
 	public void OnPlayerHit(Bullet bullet)
 	{
-		_health -= bullet.Damage;
-		_health = Mathf.Clamp(_health, 0, MaxPlayerHealth);
-
-		EmitSignal("PlayerHealthChanged", _health);
-		if (_health > 0) return;
+		Health -= bullet.Damage;
+		
+		Health = Mathf.Clamp(Health, 0, MaxPlayerHealth);
+		EmitSignal("PlayerHealthChanged", Health);
+		if (Health > 0) return;
+		_healingCooldownTimer.Start(PlayerHealCooldown);
 		
 		EmitSignal("PlayerDead");
-		QueueFree();
 	}
 
 	private void OnPolaritySwitched(int polarity)
 	{
 		_polarity = (Main.Polarity)polarity;
+	}
+
+	private void OnPlayerDead()
+	{
+		GD.Print("PLAYER DEAD");
+		GetTree().ChangeSceneToFile("res://scenes/ui/GameOverScreen.tscn");
 	}
 }

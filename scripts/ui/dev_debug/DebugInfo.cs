@@ -36,6 +36,7 @@ public partial class DebugInfo : CanvasLayer
 					   Bullet Type: {_player.BulletScene.Instantiate().GetName()}
 					   Current Polarity: {_main.CurrentPolarity}
 					   Time until Switch: {((Timer)_main.GetChild(5)).TimeLeft}
+					   Player Health: {_player.Health}
 					   """;
 	}
 

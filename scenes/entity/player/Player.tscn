@@ -3,13 +3,13 @@
 [ext_resource type="Script" path="res://scripts/entity/Player.cs" id="1_hew8j"]
 [ext_resource type="PackedScene" uid="uid://18fe0pwoksuu" path="res://scenes/entity/bullet/HeavyBullet.tscn" id="2_3o1d2"]
 [ext_resource type="Shape2D" uid="uid://dkthbl75qp8vv" path="res://scenes/entity/player/res/CollisionShape.tres" id="3_gg4vi"]
-[ext_resource type="Texture2D" uid="uid://ckdv4qqj6y384" path="res://assets/player/NEW PLAYER SPRITES/idle.svg" id="4_a35uk"]
-[ext_resource type="Texture2D" uid="uid://8x5qgvi0o3qp" path="res://assets/player/NEW PLAYER SPRITES/newplayerwalk1.svg" id="5_k1bbg"]
-[ext_resource type="Texture2D" uid="uid://3t83aopk0hk8" path="res://assets/player/NEW PLAYER SPRITES/newplayerwalk2.svg" id="6_js8lv"]
-[ext_resource type="Texture2D" uid="uid://0yn5ofjwloqv" path="res://assets/player/NEW PLAYER SPRITES/newplayerwalk3.svg" id="7_b7xp8"]
-[ext_resource type="Texture2D" uid="uid://chlvml2l1yhyr" path="res://assets/player/NEW PLAYER SPRITES/newplayerwalk4.svg" id="8_a2nk8"]
-[ext_resource type="Texture2D" uid="uid://buasatfxthgi" path="res://assets/gun/laserflash.svg" id="10_nr2wg"]
-[ext_resource type="AudioStream" uid="uid://c8prqpyi7dmhp" path="res://assets/sound/lasersound.wav" id="11_m77hp"]
+[ext_resource type="Texture2D" uid="uid://bvy6sju4qrnx4" path="res://assets/player/NEW PLAYER SPRITES/idle.svg" id="4_a35uk"]
+[ext_resource type="Texture2D" uid="uid://cq6un63kwsbbo" path="res://assets/player/NEW PLAYER SPRITES/newplayerwalk1.svg" id="5_k1bbg"]
+[ext_resource type="Texture2D" uid="uid://b8njkhe7yeh7t" path="res://assets/player/NEW PLAYER SPRITES/newplayerwalk2.svg" id="6_js8lv"]
+[ext_resource type="Texture2D" uid="uid://d4l3yb64dysyw" path="res://assets/player/NEW PLAYER SPRITES/newplayerwalk3.svg" id="7_b7xp8"]
+[ext_resource type="Texture2D" uid="uid://c8sp5wxcbxdbs" path="res://assets/player/NEW PLAYER SPRITES/newplayerwalk4.svg" id="8_a2nk8"]
+[ext_resource type="Texture2D" uid="uid://dgit11u22ne5d" path="res://assets/gun/laserflash.svg" id="10_nr2wg"]
+[ext_resource type="AudioStream" uid="uid://c7ey7hqw2wse8" path="res://assets/sound/lasersound.wav" id="11_m77hp"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3m3xt"]
 animations = [{
@@ -139,6 +139,7 @@ position = Vector2(-25, 0)
 scale = Vector2(50, 50)
 shape = ExtResource("3_gg4vi")
 
+[connection signal="PlayerDead" from="." to="." method="OnPlayerDead"]
 [connection signal="timeout" from="Timer" to="." method="OnCooldownTimeout"]
 [connection signal="timeout" from="HealingTimer" to="." method="OnHealingCooldownTimeout"]
 [connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]
