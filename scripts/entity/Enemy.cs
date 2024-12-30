@@ -110,21 +110,19 @@ public partial class Enemy : CharacterBody2D
 	private void Shoot()
 	{
 		if (!_canShoot) return;
-		
+
 		_animationPlayer.Play("muzzle_flash");
-			
-		PackedScene bullet = GD.Load<PackedScene>("res://scenes/entity/bullet/Bullet.tscn");
-		
-		var b = (Bullet)bullet.Instantiate();
+
+		var b = (Bullet)BulletScene.Instantiate();
 		AddChild(b);
-		b.Start(_endOfGun.Position, Vector2.Right.Rotated(GlobalRotation));
-		
+
+		b.StartFromRotation(_endOfGun.Position, _endOfGun.Rotation);
+
 		_audioPlayer.Play();
 		_canShoot = false;
 		_timer.Start(EnemyFireCooldown);
-		GD.Print(_endOfGun.Position);
+		GD.Print(_endOfGun.GlobalPosition);
 	}
-	
 	
 	private void OnCooldownTimeout()
 	{

@@ -29,6 +29,13 @@ public partial class Bullet : Area2D
 		Rotation = dir.Angle();
 		_velocity = dir * BulletSpeed;
 	}
+	
+	public void StartFromRotation(Vector2 pos, float rotation)
+	{
+		Position = pos;
+		Rotation = rotation;
+		_velocity = new Vector2((float)Mathf.Cos(Rotation), (float)Mathf.Sin(Rotation)) * BulletSpeed;
+	}
 
 	public override void _Process(double delta)
 	{
