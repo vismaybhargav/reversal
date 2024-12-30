@@ -90,6 +90,11 @@ public partial class Player : CharacterBody2D
 		Position = ClampPositionToWorldBoundary();
 
 		if (Input.IsActionJustReleased("shoot")) Shoot();
+		
+		if (_health <= 0)
+		{
+			QueueFree();
+		}
 	}
 
 	private Vector2 ClampPositionToWorldBoundary()

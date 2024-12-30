@@ -126,7 +126,10 @@ script = ExtResource("14_la7ml")
 position = Vector2(-24, 4)
 shape = SubResource("CircleShape2D_2en8p")
 
+[node name="ColorResetTimer" type="Timer" parent="."]
+
 [connection signal="EnemyFired" from="." to="." method="OnEnemyShoot"]
 [connection signal="timeout" from="Timer" to="." method="OnCooldownTimeout"]
 [connection signal="body_entered" from="LineOfSight" to="." method="OnPlayerInLineOfSight"]
 [connection signal="body_exited" from="LineOfSight" to="." method="OnPlayerOutOfLineOfSight"]
+[connection signal="timeout" from="ColorResetTimer" to="." method="OnColorResetTimeout"]

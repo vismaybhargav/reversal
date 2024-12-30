@@ -50,17 +50,18 @@ public partial class Bullet : Area2D
 
 	protected void OnBodyEntered(Node body)
 	{
-		switch (body)
+		if (body is Player player)
 		{
-			case Player player:
-				GD.Print("PLAYER HIT");
-				player.OnPlayerHit(this);	
-				break;
-			case Enemy enemy:
-				GD.Print("ENEMY HIT");
-				enemy.OnEnemyHit(this);
-				break;
+			GD.Print("PLAYER HIT");
+			player.OnPlayerHit(this);	
+			QueueFree();
 		}
-		QueueFree();
+		
+		if (body is Enemy enemy)
+		{
+			GD.Print("ENEMY HIT");
+			enemy.OnEnemyHit(this);
+			QueueFree();
+		}
 	}
 }
