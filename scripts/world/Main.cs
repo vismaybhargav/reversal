@@ -47,10 +47,10 @@ public partial class Main : Node2D
 		random.Randomize();
 		
 		Array<int> spawnZonesX = [-1440, -800, 1920, 1700];
-		int spawnX = spawnZonesX[random.RandiRange(0, spawnZonesX.Count - 1)];
+		var spawnX = spawnZonesX[random.RandiRange(0, spawnZonesX.Count - 1)];
 		
 		random.Randomize();
-		int spawnY = (int)random.RandfRange(EnemySpawnMinY, EnemySpawnMaxY);
+		var spawnY = (int)random.RandfRange(EnemySpawnMinY, EnemySpawnMaxY);
 		
 		enemy.Position = new Vector2(spawnX, spawnY);
 	}
