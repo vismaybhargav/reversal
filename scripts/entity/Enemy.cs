@@ -8,6 +8,7 @@ public partial class Enemy : CharacterBody2D
 	[Export] public int EnemySpeed = 35;
 	private const int EnemyHealth = 100;
 	[Export] public float EnemyFireCooldown = 1f;
+	[Export] public float EnemyBulletDeviationRadians = 0.3f;
 	
 	[Export] public PackedScene BulletScene = GD.Load<PackedScene>("res://scenes/entity/bullet/Bullet.tscn");
 	
@@ -16,10 +17,11 @@ public partial class Enemy : CharacterBody2D
 	
 	private int _health = EnemyHealth;
 	private bool _canShoot = true;
-	private bool _inLineOfSight = false;
+	private bool _inLineOfSight;
 
 	private Area2D _lineOfSight;
 	private CharacterBody2D _player;
+	private RandomNumberGenerator _rand = new();
 	
 	private Timer _timer;
 	private Marker2D _endOfGun;
@@ -64,8 +66,8 @@ public partial class Enemy : CharacterBody2D
 
 	private void MoveTowards(Vector2 target, double delta)
 	{
-		Vector2 direction = (target - Position).Normalized();
-		Vector2 velocity = direction * EnemySpeed;
+		var direction = (target - Position).Normalized();
+		var velocity = direction * EnemySpeed;
 		Position += velocity * (float)delta;
 		
 		Rotation = Mathf.Atan2(direction.Y, direction.X);
@@ -82,29 +84,22 @@ public partial class Enemy : CharacterBody2D
 		_health -= bullet.Damage;
 		//EmitSignal("PlayerHealthChanged", _health);
 		GD.Print("enemy hit! ", _health);
-		if (_health <= 0)
-		{
-			QueueFree();
-		}
+		if (_health <= 0) QueueFree();
 	}
 	
 	// TERRIBLE name ngl
 	private void OnPlayerInLineOfSight(Node body)
 	{
-		if (body is Player player)
-		{
-			GD.Print("Player In LineOfSight");
-			_inLineOfSight = true;
-		}
+		if (body is not Player) return;
+		GD.Print("Player In LineOfSight");
+		_inLineOfSight = true;
 	}
 
 	private void OnPlayerOutOfLineOfSight(Node body)
 	{
-		if (body is Player player)
-		{
-			GD.Print("Player out of LineOfSight");
-			_inLineOfSight = false;
-		}
+		if (body is not Player) return;
+		GD.Print("Player out of LineOfSight");
+		_inLineOfSight = false;
 	}
 	
 	private void Shoot()
@@ -116,7 +111,7 @@ public partial class Enemy : CharacterBody2D
 		var b = (Bullet)BulletScene.Instantiate();
 		AddChild(b);
 
-		b.StartFromRotation(_endOfGun.Position, _endOfGun.Rotation);
+		b.StartFromRotation(_endOfGun.Position, _endOfGun.Rotation + GenerateRandomDeviation());
 
 		_audioPlayer.Play();
 		_canShoot = false;
@@ -127,6 +122,11 @@ public partial class Enemy : CharacterBody2D
 	private void OnCooldownTimeout()
 	{
 		_canShoot = true;
+	}
+
+	private float GenerateRandomDeviation()
+	{
+		return _rand.RandfRange(-EnemyBulletDeviationRadians, EnemyBulletDeviationRadians);
 	}
 
 	// private void OnAreaEntered(Area2D area)
