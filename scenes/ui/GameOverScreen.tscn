@@ -58,6 +58,12 @@ theme_override_fonts/font = ExtResource("1_okxpm")
 theme_override_font_sizes/font_size = 30
 text = " RESTART "
 
+[node name="MainMenuButton" type="Button" parent="PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_okxpm")
+theme_override_font_sizes/font_size = 30
+text = "  MAIN MENU  "
+
 [node name="QuitButton" type="Button" parent="PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_okxpm")
@@ -69,4 +75,5 @@ position = Vector2(581, 464)
 texture = ExtResource("2_vpdm7")
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/RestartButton" to="." method="OnRestartPress"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/MainMenuButton" to="." method="OnMenuPress"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Rows/CenterContainer/VBoxContainer/QuitButton" to="." method="OnQuitPress"]

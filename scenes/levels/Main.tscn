@@ -57,6 +57,7 @@ tile_size = Vector2i(128, 128)
 sources/0 = SubResource("TileSetAtlasSource_u8o17")
 
 [node name="Main" type="Node2D"]
+process_mode = 1
 script = ExtResource("1_am4a6")
 
 [node name="PositiveTileMap" type="TileMapLayer" parent="."]

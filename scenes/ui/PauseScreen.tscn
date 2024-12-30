@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://tkpicjqilei2"]
+
+[ext_resource type="StyleBox" uid="uid://bhaom21wony7" path="res://scenes/ui/menu_style.tres" id="1_m7it3"]
+[ext_resource type="FontFile" uid="uid://cwtdsgycsda44" path="res://assets/ui/Bebas_Neue/BebasNeue-Regular.ttf" id="2_1n13a"]
+[ext_resource type="Script" path="res://scripts/ui/PauseScreen.cs" id="3_08b4c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fbt42"]
+bg_color = Color(0, 0, 0, 0.25098)
+
+[node name="PauseScreen" type="CanvasLayer"]
+process_mode = 3
+layer = 2
+
+[node name="Overlay" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fbt42")
+
+[node name="PauseMenuContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PauseMenuContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_m7it3")
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Rows" type="VBoxContainer" parent="PauseMenuContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PauseTitle" type="Label" parent="PauseMenuContainer/PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1n13a")
+theme_override_font_sizes/font_size = 69
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PauseMenuContainer/PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
+
+[node name="ContinueButton" type="Button" parent="PauseMenuContainer/PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1n13a")
+theme_override_font_sizes/font_size = 30
+text = "Continue"
+
+[node name="QuitButton" type="Button" parent="PauseMenuContainer/PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1n13a")
+theme_override_font_sizes/font_size = 30
+text = "  Back to Main Menu  "
+script = ExtResource("3_08b4c")
+
+[connection signal="pressed" from="PauseMenuContainer/PanelContainer/MarginContainer/Rows/ContinueButton" to="PauseMenuContainer/PanelContainer/MarginContainer/Rows/QuitButton" method="OnContinueButtonPressed"]
+[connection signal="pressed" from="PauseMenuContainer/PanelContainer/MarginContainer/Rows/QuitButton" to="PauseMenuContainer/PanelContainer/MarginContainer/Rows/QuitButton" method="OnQuitButtonPressed"]

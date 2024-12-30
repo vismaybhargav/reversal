@@ -145,4 +145,14 @@ public partial class Main : Node2D
 		EmitSignal("PolaritySwitch", (int)CurrentPolarity);
 		_polaritySwitchCountdown.Start(PolaritySwitchDuration);
 	}
+
+	public override void _UnhandledKeyInput(InputEvent @event)
+	{
+		if (@event.IsActionPressed("pause"))
+		{
+			var pauseScene = GD.Load<PackedScene>("res://scenes/ui/PauseScreen.tscn");
+			var pauseMenu = pauseScene.Instantiate();
+			AddChild(pauseMenu);
+		}
+	}
 }

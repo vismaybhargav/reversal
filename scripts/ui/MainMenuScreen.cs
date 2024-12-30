@@ -2,7 +2,7 @@ using Godot;
 
 namespace reversal.scripts.ui;
 
-public partial class GameOverScreen : CanvasLayer
+public partial class MainMenuScreen : CanvasLayer
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -13,21 +13,14 @@ public partial class GameOverScreen : CanvasLayer
 	public override void _Process(double delta)
 	{
 	}
-
-	private void OnRestartPress()
+	
+	private void OnPlayButtonPressed()
 	{
-		GetTree().Paused = false;
 		GetTree().ChangeSceneToFile("res://scenes/levels/Main.tscn");
 	}
-
-	private void OnQuitPress()
+	
+	private void OnQuitButtonPressed()
 	{
 		GetTree().Quit();
-	}
-
-	private void OnMenuPress()
-	{
-		GetTree().Paused = false;
-		GetTree().ChangeSceneToFile("res://scenes/ui/MainMenuScreen.tscn");
 	}
 }
