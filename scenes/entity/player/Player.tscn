@@ -130,4 +130,7 @@ stream = ExtResource("11_m77hp")
 volume_db = -7.0
 pitch_scale = 1.02
 
+[node name="HealingTimer" type="Timer" parent="."]
+
 [connection signal="timeout" from="Timer" to="." method="OnCooldownTimeout"]
+[connection signal="timeout" from="HealingTimer" to="." method="OnHealingCooldownTimeout"]
