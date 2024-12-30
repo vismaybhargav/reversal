@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/world/Main.cs" id="1_am4a6"]
 [ext_resource type="PackedScene" uid="uid://bp1fhbmf83xsy" path="res://scenes/entity/player/Player.tscn" id="2_vggtg"]
-[ext_resource type="Texture2D" uid="uid://bev1rg66gr11i" path="res://assets/tilesets/terrainTiles_retina.png" id="4_417ng"]
+[ext_resource type="Texture2D" uid="uid://c7x0cjcynua7j" path="res://assets/tilesets/terrainTiles_retina.png" id="4_417ng"]
 [ext_resource type="Script" path="res://scripts/util/PlayerCamera.cs" id="4_nljpq"]
 [ext_resource type="PackedScene" uid="uid://dw4babsh8r23g" path="res://scenes/ui/dev_debug/DBG_Info.tscn" id="5_lmmrk"]
 [ext_resource type="PackedScene" uid="uid://cbql7lm502321" path="res://scenes/ui/UI_Main.tscn" id="6_n7q4t"]

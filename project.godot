@@ -15,10 +15,6 @@ run/main_scene="res://scenes/levels/Main.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://assets/icon.svg"
 
-[display]
-
-window/size/resizable=false
-
 [dotnet]
 
 project/assembly_name="reversal"
