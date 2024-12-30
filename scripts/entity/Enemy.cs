@@ -22,6 +22,7 @@ public partial class Enemy : CharacterBody2D
 	private CharacterBody2D _player;
 	
 	private Timer _timer;
+	private Timer _colorResetTimer;
 	private Marker2D _endOfGun;
 	private AnimationPlayer _animationPlayer;
 	private AudioStreamPlayer2D _audioPlayer;
@@ -44,6 +45,7 @@ public partial class Enemy : CharacterBody2D
 		_lineOfSight = GetNode<Area2D>("LineOfSight");
 		
 		_timer = GetNode<Timer>("Timer");
+		_colorResetTimer = GetNode<Timer>("ColorResetTimer");
 		_endOfGun = GetNode<Marker2D>("EndOfGun");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_audioPlayer = GetNode<AudioStreamPlayer2D>("BulletSoundPlayer");
@@ -80,7 +82,9 @@ public partial class Enemy : CharacterBody2D
 	public void OnEnemyHit(Bullet bullet)
 	{
 		_health -= bullet.Damage;
-		//EmitSignal("PlayerHealthChanged", _health);
+		_sprite.Modulate = new Color(1, 0, 0, 1);
+		_colorResetTimer.Start(0.1f);
+		
 		GD.Print("enemy hit! ", _health);
 		if (_health <= 0)
 		{
@@ -127,6 +131,11 @@ public partial class Enemy : CharacterBody2D
 	private void OnCooldownTimeout()
 	{
 		_canShoot = true;
+	}
+
+	private void OnColorResetTimeout()
+	{
+		_sprite.Modulate = new Color(1, 1, 1, 1);	
 	}
 
 	// private void OnAreaEntered(Area2D area)
