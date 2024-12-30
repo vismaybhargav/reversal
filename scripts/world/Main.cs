@@ -99,6 +99,7 @@ public partial class Main : Node2D
 	private void OnPolaritySwitchCountdownTimeout()
 	{
 		CurrentPolarity = CurrentPolarity == Polarity.Positive ? Polarity.Negative : Polarity.Positive;
+		EmitSignal("PolaritySwitch", (int)CurrentPolarity);
 		
 		switch (CurrentPolarity)
 		{

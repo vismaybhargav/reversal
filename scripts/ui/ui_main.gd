@@ -17,7 +17,7 @@ func update_healthbar(value: int) -> void:
 	healthbar.value = value
 
 func update_proximity_label(prox: int) -> void:
-	if prox == 1:
-		polarity.text = "NEGATIVE"
-	elif prox == 0:
+	if prox == 0:
 		polarity.text = "POSITIVE"
+	elif prox == 1:
+		polarity.text = "NEGATIVE"
