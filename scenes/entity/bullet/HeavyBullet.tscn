@@ -5,7 +5,6 @@
 
 [node name="HeavyBullet" instance=ExtResource("1_50bt5")]
 script = ExtResource("2_dqa7t")
-DeviationIntensityRadians = 0.5
 BulletSpeed = 1500
 BulletLifeTime = 1.25
 CameraShakeIntensity = 10
