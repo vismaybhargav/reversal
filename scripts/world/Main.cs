@@ -17,6 +17,7 @@ public partial class Main : Node2D
 	[Export] public int EnemyCount = 5;
 	[Export] public float EnemySpawnMinY = -450f;
 	[Export] public float EnemySpawnMaxY = 2240f;
+	[Export] public int PolaritySwitchDuration = 30;
 
 	[Signal]
 	public delegate void
@@ -30,6 +31,7 @@ public partial class Main : Node2D
 	private CanvasLayer _dbgUi;
 	private TileMapLayer _positiveTileMap;
 	private TileMapLayer _negativeTileMap;
+	private Array<Enemy> _enemies = new();
 
 	private void InstantiateChildNodes()
 	{
@@ -52,6 +54,8 @@ public partial class Main : Node2D
 		_camera.MakeCurrent();
 
 		for (var _ = 0; _ < EnemyCount; ++_) SpawnEnemy();
+		
+		_polaritySwitchCountdown.Start(PolaritySwitchDuration);
 	}
 
 	private void SpawnEnemy()
@@ -70,6 +74,8 @@ public partial class Main : Node2D
 		var spawnY = (int)random.RandfRange(EnemySpawnMinY, EnemySpawnMaxY);
 
 		enemy.Position = new Vector2(spawnX, spawnY);
+		
+		_enemies.Add(enemy);
 	}
 	
 	private void SetCameraLimits()
@@ -97,17 +103,45 @@ public partial class Main : Node2D
 		switch (CurrentPolarity)
 		{
 			case Polarity.Positive:
-				_positiveTileMap.Visible = true;
-				_negativeTileMap.Visible = false;
-				break;
-			case Polarity.Negative:
 				_positiveTileMap.Visible = false;
 				_negativeTileMap.Visible = true;
+					
+				foreach (var t in _enemies)
+				{
+					t.SetSpeed(1);
+					// if enemy is too close, push back
+					if (t.Position.DistanceTo(_player.Position) < 500)
+					{
+						GD.Print("TOO CLOSE");
+						t.Position += (t.GlobalPosition - _player.GlobalPosition).Normalized() * 100;
+					}
+				}
+				
+				break;
+			case Polarity.Negative:
+				_positiveTileMap.Visible = true;
+				_negativeTileMap.Visible = false;
+				
+				foreach (var t in _enemies)
+				{
+					t.SetSpeed(400);
+					
+					// if enemy is close to player, reduce speed
+					if (t.GlobalPosition.DistanceTo(_player.GlobalPosition) < 500)
+					{
+						// move away from player
+						t.Position += (t.GlobalPosition - _player.GlobalPosition).Normalized() * 100;
+							
+						t.SetSpeed(35);
+					}
+				}
+				
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();
 		}
 
 		EmitSignal("PolaritySwitch", (int)CurrentPolarity);
+		_polaritySwitchCountdown.Start(PolaritySwitchDuration);
 	}
 }

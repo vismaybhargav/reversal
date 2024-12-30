@@ -34,6 +34,11 @@ public partial class Enemy : CharacterBody2D
 	private AnimationPlayer _animationPlayer;
 	private AudioStreamPlayer2D _audioPlayer;
 	private AnimatedSprite2D _sprite;
+
+	public void SetSpeed(int speed)
+	{
+		EnemySpeed = speed;	
+	}
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
