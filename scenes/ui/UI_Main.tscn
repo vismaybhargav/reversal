@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbql7lm502321"]
+[gd_scene load_steps=6 format=3 uid="uid://cbql7lm502321"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui_main.gd" id="1_22a8e"]
-[ext_resource type="Texture2D" uid="uid://ctsbaimi5py6m" path="res://assets/ui/healthbar/shield.png" id="1_wpxo8"]
-[ext_resource type="Texture2D" uid="uid://bo04f41ebnx64" path="res://assets/ui/healthbar/bar_shadow_square_small.png" id="2_jkbxm"]
-[ext_resource type="Texture2D" uid="uid://dlfc6jk7lntf7" path="res://assets/ui/healthbar/bar_square_gloss_small_green.png" id="3_yfgi0"]
+[ext_resource type="Texture2D" uid="uid://c5i0yte2tfyfl" path="res://assets/ui/healthbar/shield.png" id="1_wpxo8"]
+[ext_resource type="Texture2D" uid="uid://xt0r8ss6yrxc" path="res://assets/ui/healthbar/bar_shadow_square_small.png" id="2_jkbxm"]
+[ext_resource type="Texture2D" uid="uid://c1jijsu0arbiy" path="res://assets/ui/healthbar/bar_square_gloss_small_green.png" id="3_yfgi0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mf4ge"]
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(1.99, 2.22)
 
 [node name="UI_Main" type="Control"]
 layout_mode = 3
@@ -38,3 +42,15 @@ max_value = 200.0
 value = 200.0
 texture_under = ExtResource("2_jkbxm")
 texture_progress = ExtResource("3_yfgi0")
+
+[node name="TextureRect" type="TextureRect" parent="Margin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Margin/TextureRect"]
+layout_mode = 0
+offset_left = 0.133515
+offset_top = 302.26
+offset_right = 45.1335
+offset_bottom = 325.26
+text = "PROXIMITY"
+label_settings = SubResource("LabelSettings_mf4ge")

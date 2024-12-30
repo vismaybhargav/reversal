@@ -2605,6 +2605,8 @@ transform = Transform2D(1, 0, 0, 1, 0, 74.535)
 [node name="PolaritySwitchCountdown" type="Timer" parent="."]
 autostart = true
 
+[connection signal="PolaritySwitch" from="." to="Player" method="OnPolaritySwitched"]
+[connection signal="PolaritySwitch" from="." to="UI/UI_Main" method="update_proximity_label"]
 [connection signal="PlayerFired" from="Player" to="." method="OnPlayerShoot"]
 [connection signal="PlayerFired" from="Player" to="Player/PlayerCamera" method="OnPlayerShoot"]
 [connection signal="PlayerHealthChanged" from="Player" to="UI/UI_Main" method="update_healthbar"]

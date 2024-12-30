@@ -1,5 +1,6 @@
 using Godot;
 using reversal.scripts.entity.bullet;
+using reversal.scripts.world;
 
 namespace reversal.scripts.entity;
 
@@ -38,6 +39,7 @@ public partial class Player : CharacterBody2D
 	private AudioStreamPlayer2D _audioPlayer;
 	private AnimatedSprite2D _sprite;
 	private Area2D _closeProximityArea;
+	private Main.Polarity _polarity;
 	
 	public override void _Ready()
 	{
@@ -136,6 +138,16 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
+	private void OnBodyEntered(Node body)
+	{
+		if (body is not Enemy enemy) return;
+		
+		//TODO: This needs to be implemented, this is very wrong right now - VISMAY :sob:
+		if (_polarity == Main.Polarity.Positive) enemy.Velocity = -enemy.Velocity;
+		else enemy.EnemySpeed *= 2;
+
+	}
+
 	public void OnPlayerHit(Bullet bullet)
 	{
 		_health -= bullet.Damage;
@@ -148,5 +160,10 @@ public partial class Player : CharacterBody2D
 		{
 			EmitSignal("PlayerHealthChanged", _health);
 		}	
+	}
+
+	private void OnPolaritySwitched(int polarity)
+	{
+		_polarity = (Main.Polarity)polarity;
 	}
 }

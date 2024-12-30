@@ -18,6 +18,11 @@ public partial class Enemy : CharacterBody2D
 	private int _health = EnemyHealth;
 	private bool _canShoot = true;
 	private bool _inLineOfSight = false;
+	private bool _isPushedBack = false;
+	private float _pushbackDuration = 0.5f;
+	private float _pushbackTimer = 0.0f;
+	private float _pushbackForce = 200.0f;	
+	
 	private RandomNumberGenerator _rand = new();
 
 	private Area2D _lineOfSight;

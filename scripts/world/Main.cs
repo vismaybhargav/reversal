@@ -37,6 +37,8 @@ public partial class Main : Node2D
 		_camera = GetNode<Camera2D>("Player/PlayerCamera");
 		_dbgUi = GetNode<CanvasLayer>("DBG_Info");
 		_polaritySwitchCountdown = GetNode<Timer>("PolaritySwitchCountdown");
+		_positiveTileMap = GetNode<TileMapLayer>("PositiveTileMap");
+		_negativeTileMap = GetNode<TileMapLayer>("NegativeTileMap");
 	}
 
 	public override void _Ready()
@@ -94,6 +96,6 @@ public partial class Main : Node2D
 				throw new ArgumentOutOfRangeException();
 		}
 
-		EmitSignal("PolaritySwitchEventHandler", (int)CurrentPolarity);
+		EmitSignal("PolaritySwitch", (int)CurrentPolarity);
 	}
 }

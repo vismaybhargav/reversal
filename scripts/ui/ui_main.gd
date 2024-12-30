@@ -5,6 +5,7 @@ var yellowTex = preload("res://assets/ui/healthbar/bar_square_gloss_small_yellow
 var redTex = preload("res://assets/ui/healthbar/bar_square_gloss_small_red.png")
 
 @onready var healthbar = $Margin/HBox/HealthBar
+@onready var proximity_label = $Margin/TextureRect/Label
 
 func update_healthbar(value: int) -> void:
 	healthbar.texture_progress = greenTex
@@ -14,3 +15,10 @@ func update_healthbar(value: int) -> void:
 		healthbar.texture_progress = redTex
 		
 	healthbar.value = value
+
+func update_proximity_label(prox: int) -> void:
+	print(prox)
+	if prox == 1:
+		proximity_label.text = "PROXIMITY: NEGATIVE"
+	elif prox == 0:
+		proximity_label.text = "PROXIMITY: POSITIVE"
