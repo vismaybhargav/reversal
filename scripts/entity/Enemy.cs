@@ -92,7 +92,6 @@ public partial class Enemy : CharacterBody2D
 		_sprite.Modulate = new Color(1, 0, 0, 1);
 		_colorResetTimer.Start(0.1f);
 		
-		GD.Print("enemy hit! ", _health);
 		if (_health <= 0) QueueFree();
 	}
 	
@@ -100,14 +99,12 @@ public partial class Enemy : CharacterBody2D
 	private void OnPlayerInLineOfSight(Node body)
 	{
 		if (body is not Player) return;
-		GD.Print("Player In LineOfSight");
 		_inLineOfSight = true;
 	}
 
 	private void OnPlayerOutOfLineOfSight(Node body)
 	{
 		if (body is not Player) return;
-		GD.Print("Player out of LineOfSight");
 		_inLineOfSight = false;
 	}
 	
