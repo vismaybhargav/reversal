@@ -13,7 +13,7 @@ public partial class HeavyBullet : Bullet
         GlobalRotation += _rand.RandfRange((float)-DeviationIntensityRadians, (float)DeviationIntensityRadians);
     }
 
-    public void OnBodyEntered(Node body)
+    public new void OnBodyEntered(Node body)
     {
         base.OnBodyEntered(body);
     }

@@ -41,10 +41,8 @@ public partial class Bullet : Area2D
 		QueueFree();
 	}
 
-	public void OnBodyEntered(Node body)
+	protected void OnBodyEntered(Node body)
 	{
-		GD.Print("TEST TEST TEST");
-		
 		if (body is Player player)
 		{
 			GD.Print("PLAYER HIT");

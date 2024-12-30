@@ -1,15 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://bdwnid8dehdry"]
+[gd_scene load_steps=12 format=3 uid="uid://bdwnid8dehdry"]
 
 [ext_resource type="Script" path="res://scripts/entity/Enemy.cs" id="1_744jq"]
 [ext_resource type="Shape2D" uid="uid://dkthbl75qp8vv" path="res://scenes/entity/player/res/CollisionShape.tres" id="3_7b5as"]
-[ext_resource type="Texture2D" uid="uid://df0tl07nrv0ow" path="res://assets/player/playerwalk8.svg" id="4_iihj8"]
-[ext_resource type="Texture2D" uid="uid://bqk63baohk4eh" path="res://assets/player/playerwalk1player_rest.svg" id="5_7fw0g"]
-[ext_resource type="Texture2D" uid="uid://6sx7x0bbmi8l" path="res://assets/player/playerwalk2.svg" id="6_ps00g"]
-[ext_resource type="Texture2D" uid="uid://llpf2g0ukqcf" path="res://assets/player/playerwalk3.svg" id="7_lcfaj"]
-[ext_resource type="Texture2D" uid="uid://bw6a2bbfm8lat" path="res://assets/player/playerwalk4.svg" id="8_uwbdd"]
-[ext_resource type="Texture2D" uid="uid://dy33xnyw55k3v" path="res://assets/player/playerwalk6.svg" id="9_idu1p"]
-[ext_resource type="Texture2D" uid="uid://da22qt6aeow71" path="res://assets/player/playerwalk5.svg" id="10_wvevb"]
-[ext_resource type="Texture2D" uid="uid://cs4418lwmsw5r" path="res://assets/player/playerwalk7.svg" id="11_gosxr"]
+[ext_resource type="Texture2D" uid="uid://ba2ckqfad7h6x" path="res://assets/enemy/enemy.svg" id="3_x743g"]
 [ext_resource type="Texture2D" uid="uid://dgit11u22ne5d" path="res://assets/gun/laserflash.svg" id="12_1x71j"]
 [ext_resource type="AudioStream" uid="uid://c7ey7hqw2wse8" path="res://assets/sound/lasersound.wav" id="13_tfkxy"]
 [ext_resource type="Script" path="res://scripts/util/PlayerCamera.cs" id="14_la7ml"]
@@ -17,29 +10,8 @@
 [sub_resource type="SpriteFrames" id="SpriteFrames_3m3xt"]
 animations = [{
 "frames": [{
-"duration": 0.2,
-"texture": ExtResource("4_iihj8")
-}, {
-"duration": 0.4,
-"texture": ExtResource("5_7fw0g")
-}, {
-"duration": 0.4,
-"texture": ExtResource("6_ps00g")
-}, {
-"duration": 0.4,
-"texture": ExtResource("7_lcfaj")
-}, {
-"duration": 0.4,
-"texture": ExtResource("8_uwbdd")
-}, {
-"duration": 0.4,
-"texture": ExtResource("9_idu1p")
-}, {
 "duration": 1.0,
-"texture": ExtResource("10_wvevb")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_gosxr")
+"texture": ExtResource("3_x743g")
 }],
 "loop": true,
 "name": &"default",
@@ -107,30 +79,32 @@ _data = {
 "muzzle_flash": SubResource("Animation_girl0")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_2en8p"]
+radius = 600.213
+
 [node name="Enemy" type="CharacterBody2D"]
 position = Vector2(576, 324)
 script = ExtResource("1_744jq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.5, -0.499999)
+position = Vector2(-25.5, 1)
 scale = Vector2(5, 5)
 shape = ExtResource("3_7b5as")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-rotation = 1.56455
+scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_3m3xt")
-frame = 1
 frame_progress = 0.218081
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
 [node name="EndOfGun" type="Marker2D" parent="."]
-position = Vector2(30, 30)
+position = Vector2(55, 18)
 
 [node name="MuzzleFlash" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(36, 31)
+position = Vector2(56, 20)
 texture = ExtResource("12_1x71j")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -145,3 +119,14 @@ pitch_scale = 2.8
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 script = ExtResource("14_la7ml")
+
+[node name="LineOfSight" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LineOfSight"]
+position = Vector2(-24, 4)
+shape = SubResource("CircleShape2D_2en8p")
+
+[connection signal="EnemyFired" from="." to="." method="OnEnemyShoot"]
+[connection signal="timeout" from="Timer" to="." method="OnCooldownTimeout"]
+[connection signal="body_entered" from="LineOfSight" to="." method="OnPlayerInLineOfSight"]
+[connection signal="body_exited" from="LineOfSight" to="." method="OnPlayerOutOfLineOfSight"]

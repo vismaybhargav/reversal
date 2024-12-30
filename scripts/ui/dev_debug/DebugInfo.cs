@@ -32,7 +32,6 @@ public partial class DebugInfo : CanvasLayer
 					   OS: {OS.GetName()} {OS.GetVersion()}
 					   CPU: {OS.GetProcessorName()} 
 					   Cores: {OS.GetProcessorCount()}
-					   GPU: {RenderingServer.GetRenderingDevice().GetDeviceName()}
 					   Player Pos: {_player.Position}
 					   Bullet Type: {_player.BulletScene.Instantiate().GetName()}
 					   """;
