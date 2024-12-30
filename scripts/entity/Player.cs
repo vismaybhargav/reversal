@@ -151,15 +151,13 @@ public partial class Player : CharacterBody2D
 	public void OnPlayerHit(Bullet bullet)
 	{
 		_health -= bullet.Damage;
-		if (_health <= 0)
-		{
-			EmitSignal("PlayerDead");
-			QueueFree();
-		}
-		else
-		{
-			EmitSignal("PlayerHealthChanged", _health);
-		}	
+		_health = Mathf.Clamp(_health, 0, MaxPlayerHealth);
+
+		EmitSignal("PlayerHealthChanged", _health);
+		if (_health > 0) return;
+		
+		EmitSignal("PlayerDead");
+		QueueFree();
 	}
 
 	private void OnPolaritySwitched(int polarity)
