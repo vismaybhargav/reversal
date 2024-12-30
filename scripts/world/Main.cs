@@ -45,6 +45,7 @@ public partial class Main : Node2D
 	{
 		GD.Print("Main ready");
 		InstantiateChildNodes();
+		SetCameraLimits();
 
 		if (!OS.IsDebugBuild()) _dbgUi.Hide();
 
@@ -69,6 +70,17 @@ public partial class Main : Node2D
 		var spawnY = (int)random.RandfRange(EnemySpawnMinY, EnemySpawnMaxY);
 
 		enemy.Position = new Vector2(spawnX, spawnY);
+	}
+	
+	private void SetCameraLimits()
+	{
+		var mapLimits = _positiveTileMap.GetUsedRect();
+		var mapCellSize = _positiveTileMap.TileSet.TileSize;
+		
+		_camera.LimitLeft = mapLimits.Position.X * mapCellSize.X;
+		_camera.LimitRight = mapLimits.End.X * mapCellSize.X;
+		_camera.LimitTop = mapLimits.Position.Y * mapCellSize.Y;
+		_camera.LimitBottom = mapLimits.End.Y * mapCellSize.Y;
 	}
 
 	private void OnPlayerShoot(PackedScene bullet, Vector2 pos, Vector2 dir)
