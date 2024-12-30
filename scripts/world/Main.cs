@@ -31,6 +31,7 @@ public partial class Main : Node2D
 	private CanvasLayer _dbgUi;
 	private TileMapLayer _positiveTileMap;
 	private TileMapLayer _negativeTileMap;
+	private Label _playerHealthLabel;
 	private Array<Enemy> _enemies = new();
 
 	private void InstantiateChildNodes()
@@ -41,6 +42,7 @@ public partial class Main : Node2D
 		_polaritySwitchCountdown = GetNode<Timer>("PolaritySwitchCountdown");
 		_positiveTileMap = GetNode<TileMapLayer>("PositiveTileMap");
 		_negativeTileMap = GetNode<TileMapLayer>("NegativeTileMap");
+		_playerHealthLabel = GetNode<Label>("PlayerHealthLabel");
 	}
 
 	public override void _Ready()
@@ -56,6 +58,7 @@ public partial class Main : Node2D
 		for (var _ = 0; _ < EnemyCount; ++_) SpawnEnemy();
 		
 		_polaritySwitchCountdown.Start(PolaritySwitchDuration);
+		_playerHealthLabel.SetText(200.ToString());
 	}
 
 	private void SpawnEnemy()
@@ -122,6 +125,7 @@ public partial class Main : Node2D
 			case Polarity.Negative:
 				_positiveTileMap.Visible = true;
 				_negativeTileMap.Visible = false;
+				GD.Print("NEGATIVE POLARITY");
 				
 				foreach (var t in _enemies)
 				{

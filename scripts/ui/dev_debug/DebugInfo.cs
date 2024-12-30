@@ -26,28 +26,20 @@ public partial class DebugInfo : CanvasLayer
 	public override void _Process(double delta)
 	{
 		_label.Text = $"""
-					   DEBUG_BUILD - DEVELOPER: {MatchDev(OS.GetName())}
-					   FPS: {Engine.GetFramesPerSecond()}
-					   Architecture: {Engine.GetArchitectureName()}
-					   OS: {OS.GetName()} {OS.GetVersion()}
-					   CPU: {OS.GetProcessorName()} 
-					   Cores: {OS.GetProcessorCount()}
-					   Player Pos: {_player.Position}
-					   Bullet Type: {_player.BulletScene.Instantiate().GetName()}
-					   Current Polarity: {_main.CurrentPolarity}
-					   Time until Switch: {((Timer)_main.GetChild(5)).TimeLeft}
-					   Player Health: {_player.Health}
-					   """;
+		               FPS: {Engine.GetFramesPerSecond()}
+		               Player Pos: {_player.Position}
+		               Time until Switch: {Mathf.Round(((Timer)_main.GetChild(5)).TimeLeft * 100) / 100.0}
+		               """;
 	}
 
-	private static string MatchDev(string osName)
-	{
-		return osName switch
-		{
-			"Windows" => "Vismay",
-			"macOS" => "Jaewon",
-			"Linux" => "Dhruva",
-			_ => "Unknown"
-		};
-	}
+	// private static string MatchDev(string osName)
+	// {
+	// 	return osName switch
+	// 	{
+	// 		"Windows" => "Vismay",
+	// 		"macOS" => "Jaewon",
+	// 		"Linux" => "Dhruva",
+	// 		_ => "Unknown"
+	// 	};
+	// }
 }

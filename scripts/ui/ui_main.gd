@@ -5,6 +5,7 @@ var yellowTex = preload("res://assets/ui/healthbar/bar_square_gloss_small_yellow
 var redTex = preload("res://assets/ui/healthbar/bar_square_gloss_small_red.png")
 
 @onready var healthbar = $HealthBar
+@onready var healthbar_label = $PlayerHealthLabel
 @onready var polarity = $PolarityRect/PolarityLabel
 
 func update_healthbar(value: int) -> void:
@@ -15,6 +16,7 @@ func update_healthbar(value: int) -> void:
 		healthbar.texture_progress = redTex
 		
 	healthbar.value = value
+	healthbar_label.text = str(value);
 
 func update_proximity_label(prox: int) -> void:
 	if prox == 0:

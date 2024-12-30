@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://cbql7lm502321"]
+[gd_scene load_steps=9 format=3 uid="uid://cbql7lm502321"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui_main.gd" id="1_22a8e"]
-[ext_resource type="Texture2D" uid="uid://c5i0yte2tfyfl" path="res://assets/ui/healthbar/shield.png" id="1_wpxo8"]
-[ext_resource type="Texture2D" uid="uid://xt0r8ss6yrxc" path="res://assets/ui/healthbar/bar_shadow_square_small.png" id="2_jkbxm"]
-[ext_resource type="FontFile" uid="uid://cn3n4xl7r1ipg" path="res://assets/ui/Kenney Future.ttf" id="3_ne4ae"]
-[ext_resource type="Texture2D" uid="uid://c1jijsu0arbiy" path="res://assets/ui/healthbar/bar_square_gloss_small_green.png" id="3_yfgi0"]
-[ext_resource type="Texture2D" uid="uid://qwrqglxp3vhh" path="res://assets/ui/button_rectangle_depth_border.png" id="5_ihju4"]
+[ext_resource type="Texture2D" uid="uid://ceef1unjxtygj" path="res://assets/ui/healthbar/shield.png" id="1_wpxo8"]
+[ext_resource type="Texture2D" uid="uid://bnosvke571egu" path="res://assets/ui/healthbar/bar_shadow_square_small.png" id="2_jkbxm"]
+[ext_resource type="FontFile" uid="uid://b58fk5bowt8b7" path="res://assets/ui/Kenney Future.ttf" id="3_ne4ae"]
+[ext_resource type="Texture2D" uid="uid://bqs0xl72wvrwi" path="res://assets/ui/healthbar/bar_square_gloss_small_green.png" id="3_yfgi0"]
+[ext_resource type="Texture2D" uid="uid://cjseean5m4t2c" path="res://assets/ui/button_rectangle_depth_border.png" id="5_ihju4"]
+[ext_resource type="FontFile" uid="uid://cwtdsgycsda44" path="res://assets/ui/Bebas_Neue/BebasNeue-Regular.ttf" id="7_2x733"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mf4ge"]
 font = ExtResource("3_ne4ae")
@@ -86,3 +87,13 @@ offset_bottom = 139.871
 scale = Vector2(0.26, 0.26)
 size_flags_horizontal = 0
 texture = ExtResource("1_wpxo8")
+
+[node name="PlayerHealthLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 59.711
+offset_top = 15.8286
+offset_right = 99.711
+offset_bottom = 38.8286
+theme_override_fonts/font = ExtResource("7_2x733")
+theme_override_font_sizes/font_size = 20
+text = "200"
