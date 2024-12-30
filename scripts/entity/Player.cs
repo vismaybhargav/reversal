@@ -1,6 +1,5 @@
 using Godot;
 using reversal.scripts.entity.bullet;
-using Vector2 = Godot.Vector2;
 
 namespace reversal.scripts.entity;
 
@@ -12,6 +11,7 @@ public partial class Player : CharacterBody2D
 	[Export] public int PlayerHealIncrement = 5;
 	[Export] public int MaxPlayerHealth = 200;
 	[Export] public PackedScene BulletScene = GD.Load<PackedScene>("res://scenes/entity/bullet/Bullet.tscn");
+	[Export] public int ClosedProximityRadius = 10;
 	
 	private Vector2 _screenSize;
 	private int _playerSpeedIncrement  = 1;
@@ -28,12 +28,16 @@ public partial class Player : CharacterBody2D
 	[Signal]
 	public delegate void PlayerHealthChangedEventHandler(int newHealth);
 	
+	[Signal]
+	public delegate void PlayerDeadEventHandler();
+	
 	// Child Nodes
 	private Timer _timer;
 	private Marker2D _endOfGun;
 	private AnimationPlayer _animationPlayer;
 	private AudioStreamPlayer2D _audioPlayer;
 	private AnimatedSprite2D _sprite;
+	private Area2D _closeProximityArea;
 	
 	public override void _Ready()
 	{
@@ -94,10 +98,7 @@ public partial class Player : CharacterBody2D
 
 		if (Input.IsActionJustReleased("shoot")) Shoot();
 		
-		if (_health <= 0)
-		{
-			QueueFree();
-		}
+		
 	}
 
 	private Vector2 ClampPositionToWorldBoundary()
@@ -108,33 +109,6 @@ public partial class Player : CharacterBody2D
 		);
 	}
 	
-	/// <summary>
-	/// Checks if the collision shape of the player contains the vector
-	/// </summary>
-	/// <param name="vec2">the vector to check</param>
-	/// <returns>true if the vector is in the shape, false otherwise</returns>
-	// private bool DoesShapeContain(Vector2 vec2)
-	// {
-	// 	var shape = (RectangleShape2D)_collisionShape.Shape;
-		
-	// 	//TODO: Fix this math
-	// 	return IsBetween(vec2.X, _collisionShape.Position.X + shape.Size.X, _collisionShape.Position.X) && 
-	// 	   IsBetween(vec2.Y,  _collisionShape.Position.Y + shape.Size.Y, _collisionShape.Position.Y);
-	// }
-	
-	/// <summary>
-	/// Checks if the provided value is in between max and min
-	/// </summary>
-	/// <param name="val">Provided value</param>
-	/// <param name="max">Max value</param>
-	/// <param name="min">Minimum Value</param>
-	/// <returns> max lessThanEqual val greaterThanEqual min </returns>
-	private static bool IsBetween(double val, double max, double min)
-	{
-		return val >= min && val <= max;
-
-	}
-
 	private void Shoot()
 	{
 		if (!_canShoot) return;
@@ -160,12 +134,19 @@ public partial class Player : CharacterBody2D
 		{
 			EmitSignal("PlayerHit", bullet);
 		}
-		
 	}
 
 	public void OnPlayerHit(Bullet bullet)
 	{
 		_health -= bullet.Damage;
-		EmitSignal("PlayerHealthChanged", _health);
+		if (_health <= 0)
+		{
+			EmitSignal("PlayerDead");
+			QueueFree();
+		}
+		else
+		{
+			EmitSignal("PlayerHealthChanged", _health);
+		}	
 	}
 }
